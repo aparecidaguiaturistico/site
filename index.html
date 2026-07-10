@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -1949,7 +1950,7 @@
             <h2>Guia Turístico <span>Aparecida</span></h2>
             <p>Descubra os melhores pontos turísticos, hotéis, restaurantes e serviços de quem visita ou vive a fé em Aparecida.</p>
             <div class="hero-actions">
-                <a class="btn-hero" href="https://github.com/aparecidaguiaturistico/Guia/releases/download/1.O.4/appguiaturistico.3.apk" onclick="registrarDownload('hero')">
+                <a class="btn-hero" href="https://github.com/aparecidaguiaturistico/Guia/releases/download/1.O.4/appguiaturistico.3.apk" onclick="event.preventDefault(); registrarDownload('hero');">
                     <i class="fas fa-download"></i> Baixar Aplicativo
                 </a>
             </div>
@@ -10517,8 +10518,14 @@ const firebaseConfig = {
             if (typeof gtag === "function") {
                 gtag('event', 'download_apk', {
                     'event_category': 'engagement',
-                    'event_label': origem
+                    'event_label': origem,
+                    'event_callback': function () {
+                        window.location.href = APK_URL;
+                    },
+                    'event_timeout': 1000
                 });
+            } else {
+                window.location.href = APK_URL;
             }
         }
 
@@ -10540,7 +10547,7 @@ const firebaseConfig = {
                     </div>
 
                     <div class="download-cta-wrap">
-                        <a class="btn-hero" style="color:#10263f;" href="${APK_URL}" onclick="registrarDownload('topo_pagina')">
+                        <a class="btn-hero" style="color:#10263f;" href="${APK_URL}" onclick="event.preventDefault(); registrarDownload('topo_pagina');">
                             <i class="fas fa-download"></i> Baixar Aplicativo (.apk)
                         </a>
                         <div class="download-selo"><i class="fas fa-check-circle"></i> Arquivo oficial do Guia Turístico Aparecida</div>
@@ -10614,7 +10621,7 @@ const firebaseConfig = {
                     </div>
 
                     <div class="download-cta-wrap" style="margin-top: 10px;">
-                        <a class="btn-hero" style="color:#10263f;" href="${APK_URL}" onclick="registrarDownload('rodape_pagina')">
+                        <a class="btn-hero" style="color:#10263f;" href="${APK_URL}" onclick="event.preventDefault(); registrarDownload('rodape_pagina');">
                             <i class="fas fa-download"></i> Baixar Aplicativo Agora
                         </a>
                     </div>
