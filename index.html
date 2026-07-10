@@ -5,7 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-226K1CX9VM"></script>
+    <!-- Carrega o script pelo ID que já está ativo na propriedade (G-88J7FPBMH2). -->
+    <!-- Os streams da mesma propriedade GA4 compartilham o mesmo "Google tag", -->
+    <!-- então o gtag('config', ...) abaixo continua enviando os dados certos -->
+    <!-- para o stream do domínio .com.br (G-226K1CX9VM). -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-88J7FPBMH2"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
