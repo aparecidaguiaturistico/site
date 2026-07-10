@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -10515,18 +10514,21 @@ const firebaseConfig = {
         const APK_URL = "https://github.com/aparecidaguiaturistico/Guia/releases/download/1.O.4/appguiaturistico.3.apk";
 
         function registrarDownload(origem) {
+            let jaNavegou = false;
+            function irParaDownload() {
+                if (jaNavegou) return;
+                jaNavegou = true;
+                window.location.href = APK_URL;
+            }
             if (typeof gtag === "function") {
                 gtag('event', 'download_apk', {
                     'event_category': 'engagement',
-                    'event_label': origem,
-                    'event_callback': function () {
-                        window.location.href = APK_URL;
-                    },
-                    'event_timeout': 1000
+                    'event_label': origem
                 });
-            } else {
-                window.location.href = APK_URL;
             }
+            // Garante que o download aconteça mesmo se o Analytics
+            // estiver bloqueado (ex: adblock) ou demorar para responder.
+            setTimeout(irParaDownload, 300);
         }
 
         function abrirDownload() {
