@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.seudominio.com.br/sitemap.xml
+Sitemap: https://aparecidaguiaturistico.com.br/sitemap.xml
