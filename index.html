@@ -6,23 +6,20 @@
 
     <!-- ============================================================ -->
     <!-- ===== SEO: título, descrição e tags para Google/redes ===== -->
-    <!-- IMPORTANTE: troque "https://www.seudominio.com.br" pelo -->
-    <!-- endereço real do seu site em TODAS as linhas abaixo que o -->
-    <!-- contêm (canonical, og:url, og:image, twitter:image e o -->
-    <!-- JSON-LD no fim do arquivo). -->
+    <!-- Domínio configurado: https://aparecidaguiaturistico.com.br -->
     <!-- ============================================================ -->
     <title>Guia Aparecida SP - Basílica, Hotéis, Passeios e Onde Ficar</title>
     <meta name="description" content="Guia completo e atualizado de Aparecida - SP: Basílica de Nossa Senhora Aparecida, horários de missas, Campanário, Morro do Cruzeiro, hotéis, restaurantes, o que fazer e dicas práticas para sua peregrinação ou viagem.">
     <meta name="keywords" content="Aparecida SP, Basílica de Aparecida, o que fazer em Aparecida, hotéis em Aparecida, romaria Aparecida, Nossa Senhora Aparecida, turismo religioso, Círio de Aparecida">
     <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://www.seudominio.com.br/">
+    <link rel="canonical" href="https://aparecidaguiaturistico.com.br/">
 
     <!-- Open Graph (compartilhamento no WhatsApp, Facebook, etc.) -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="Guia Aparecida SP - Basílica, Hotéis, Passeios e Onde Ficar">
     <meta property="og:description" content="Guia completo de Aparecida - SP: Basílica, Campanário, hotéis, restaurantes e tudo o que você precisa saber para sua visita ou romaria.">
-    <meta property="og:image" content="https://www.seudominio.com.br/imagem-compartilhamento.jpg">
-    <meta property="og:url" content="https://www.seudominio.com.br/">
+    <meta property="og:image" content="https://aparecidaguiaturistico.com.br/imagem-compartilhamento.jpg">
+    <meta property="og:url" content="https://aparecidaguiaturistico.com.br/">
     <meta property="og:locale" content="pt_BR">
     <meta property="og:site_name" content="Guia Aparecida">
 
@@ -30,7 +27,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Guia Aparecida SP - Basílica, Hotéis, Passeios e Onde Ficar">
     <meta name="twitter:description" content="Guia completo de Aparecida - SP: Basílica, Campanário, hotéis, restaurantes e dicas de viagem.">
-    <meta name="twitter:image" content="https://www.seudominio.com.br/imagem-compartilhamento.jpg">
+    <meta name="twitter:image" content="https://aparecidaguiaturistico.com.br/imagem-compartilhamento.jpg">
 
     <!-- Google tag (gtag.js) -->
     <!-- Usando o ID único que já está 100% ativo na propriedade GA4. -->
@@ -1031,6 +1028,110 @@
             line-height: 1.6;
         }
 
+        /* ----- Reflexão do Dia ----- */
+        .reflexao-data {
+            text-align: center;
+            font-size: 12.5px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--gold);
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .reflexao-streak {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: linear-gradient(120deg, #fff8ea, #fdf1d8);
+            border: 1px solid var(--gold-light);
+            border-radius: 999px;
+            padding: 8px 18px;
+            margin: 0 auto 22px;
+            width: fit-content;
+            font-size: 13.5px;
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+
+        .reflexao-streak i {
+            color: #d97706;
+        }
+
+        .reflexao-card {
+            background: var(--paper);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            padding: 26px 24px;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 20px;
+        }
+
+        .reflexao-texto {
+            font-family: 'Fraunces', serif;
+            font-size: 17px;
+            line-height: 1.75;
+            color: var(--text);
+            text-align: center;
+            font-style: italic;
+        }
+
+        .reflexao-divisor-fina {
+            width: 40px;
+            height: 2px;
+            background: var(--gold);
+            margin: 18px auto;
+            border-radius: 2px;
+        }
+
+        .reflexao-oracao {
+            text-align: center;
+            font-size: 13.5px;
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        .reflexao-mistério, .reflexao-misterio {
+            background: var(--cream);
+            border-radius: var(--radius-sm);
+            padding: 16px 18px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 20px;
+        }
+
+        .reflexao-misterio i {
+            font-size: 20px;
+            color: var(--primary);
+            flex-shrink: 0;
+        }
+
+        .reflexao-misterio strong {
+            display: block;
+            color: var(--ink);
+            font-size: 14px;
+        }
+
+        .reflexao-misterio span {
+            font-size: 12.5px;
+            color: var(--text-light);
+        }
+
+        body.dark-theme .reflexao-card {
+            background: #16324f;
+            border-color: #234b6e;
+        }
+
+        body.dark-theme .reflexao-texto {
+            color: #f3ead2;
+        }
+
+        body.dark-theme .reflexao-misterio {
+            background: #123a58;
+        }
+
         /* ===========================================================
            TUTORIAL — BAIXAR APLICATIVO (fora da Play Store)
         =========================================================== */
@@ -1976,7 +2077,7 @@
         "@type": "TouristInformationCenter",
         "name": "Guia Aparecida",
         "description": "Guia completo de pontos turísticos, hotéis, restaurantes e serviços em Aparecida - SP.",
-        "url": "https://www.seudominio.com.br/",
+        "url": "https://aparecidaguiaturistico.com.br/",
         "areaServed": {
             "@type": "City",
             "name": "Aparecida",
@@ -2017,6 +2118,7 @@
                 <a onclick="selecionarCategoria('Bares e Restaurantes')">Restaurantes</a>
                 <a onclick="selecionarCategoria('Lazer')">Lazer</a>
                 <a onclick="abrirMissa()"><i class="fas fa-broadcast-tower"></i> Missa ao Vivo</a>
+                <a onclick="abrirReflexao()"><i class="fas fa-dove"></i> Reflexão</a>
                 <a onclick="abrirMural()"><i class="fas fa-feather-alt"></i> Mural</a>
             </div>
         </div>
@@ -9567,6 +9669,10 @@ const firebaseConfig = {
                             <i class="fas fa-broadcast-tower" style="color: #a13f3f;"></i>
                             <h3>Missa ao Vivo</h3>
                         </div>
+                        <div class="card-category" onclick="abrirReflexao()" style="border-bottom: 3px solid #1f5c8b;">
+                            <i class="fas fa-dove" style="color: #1f5c8b;"></i>
+                            <h3>Reflexão do Dia</h3>
+                        </div>
                         <div class="card-category" onclick="abrirMural()" style="border-bottom: 3px solid #c79a3e;">
                             <i class="fas fa-feather-alt" style="color: #c79a3e;"></i>
                             <h3>Mural de Recados</h3>
@@ -10532,6 +10638,151 @@ const firebaseConfig = {
         /* ===========================================================
            MISSA AO VIVO
         =========================================================== */
+        /* ===========================================================
+           REFLEXÃO DO DIA — conteúdo espiritual diário, sem backend.
+           Roda 30 reflexões conforme o dia do ano e calcula o mistério
+           do terço do dia (tradição: cada dia da semana tem seu grupo
+           de mistérios). Também guarda um contador de "dias seguidos"
+           no localStorage, para incentivar o retorno diário ao site.
+        =========================================================== */
+        const reflexoesDoDia = [
+            { texto: "Toda caminhada até Aparecida começa com um primeiro passo de fé. Hoje, permita-se parar por um instante e agradecer pelo caminho já percorrido.", oracao: "Reserve um minuto de silêncio e, se for do seu costume, rece um Ave-Maria com calma." },
+            { texto: "Assim como o rio Paraíba segue seu curso sem pressa, a vida pede paciência. Confie que os seus passos estão sendo guiados.", oracao: "Ofereça o seu dia, com suas alegrias e dificuldades, em oração silenciosa." },
+            { texto: "A pequena imagem encontrada nas águas nos ensina que grandes histórias podem nascer de gestos simples. Valorize o simples hoje.", oracao: "Agradeça por três coisas simples que aconteceram no seu dia." },
+            { texto: "Ser peregrino é aceitar não ter todas as respostas, mas seguir mesmo assim. Tenha paciência com as próprias dúvidas hoje.", oracao: "Peça, em oração, luz para os próximos passos." },
+            { texto: "A fé, como a luz das velas na Basílica, se mantém viva quando é cuidada com pequenos gestos diários.", oracao: "Faça hoje um gesto de cuidado por alguém próximo." },
+            { texto: "Há quem viaje dias inteiros só para agradecer. Pense no que você tem a agradecer hoje, mesmo sem sair de casa.", oracao: "Diga um sincero 'obrigado' em oração." },
+            { texto: "A esperança do romeiro não é ingênua — é escolhida todos os dias, mesmo diante das dificuldades.", oracao: "Renove hoje sua esperança em algo que parecia difícil." },
+            { texto: "Acolher é um dos maiores gestos de fé. Aparecida acolhe milhões; você pode acolher alguém hoje também.", oracao: "Pense em alguém que precisa ser ouvido e reserve um tempo para essa pessoa." },
+            { texto: "Nem toda oração precisa de palavras grandes. Muitas vezes, um simples 'ajuda-me' já é suficiente.", oracao: "Faça um pedido simples e sincero em oração." },
+            { texto: "A Basílica foi construída aos poucos, por muitas mãos, ao longo de décadas. Coisas boas também demoram a se construir na sua vida.", oracao: "Tenha paciência com um projeto seu que ainda está em construção." },
+            { texto: "Romeiros de todas as idades sobem o mesmo caminho. A fé não escolhe idade nem condição para tocar um coração.", oracao: "Pense em uma pessoa mais velha ou mais jovem que te inspira na fé ou na vida." },
+            { texto: "O silêncio dentro do Santuário fala mais alto que muitas palavras. Busque hoje um momento de silêncio para si.", oracao: "Fique cinco minutos em silêncio, sem celular, antes de dormir." },
+            { texto: "Gratidão e pedido caminham juntos na vida de fé — pode-se agradecer e pedir ao mesmo tempo.", oracao: "Agradeça por algo e peça por algo, na mesma oração." },
+            { texto: "Muitos vêm a Aparecida cumprir promessas. Pense hoje se há algum compromisso seu que precisa ser honrado.", oracao: "Reflita sobre uma promessa, a Deus ou a alguém, que está pendente." },
+            { texto: "A imagem de Nossa Senhora Aparecida é pequena, mas sua devoção atravessa o Brasil inteiro. Pequenos gestos também alcançam longe.", oracao: "Pense em um pequeno gesto seu que pode ter alcançado mais gente do que você imagina." },
+            { texto: "Chuva ou sol, romeiros continuam a caminhada. As circunstâncias mudam, mas a fé pode permanecer firme.", oracao: "Ofereça a Deus algo que está sendo difícil hoje." },
+            { texto: "Há quem chegue de joelhos até o altar, em sinal de profunda entrega. Pergunte-se: o que você está disposto a entregar hoje?", oracao: "Entregue, em oração, uma preocupação que só você conhece." },
+            { texto: "A Basílica tem espaço para multidões, mas cada romeiro é recebido como se fosse único. Você é importante, mesmo em meio à multidão.", oracao: "Lembre hoje que você também merece cuidado e atenção." },
+            { texto: "Antes de ser um grande templo, Aparecida foi uma pequena capela erguida com fé simples. Grandes coisas começam pequenas.", oracao: "Valorize um pequeno começo que você fez recentemente." },
+            { texto: "Os sinos do Campanário tocam para quem está perto e para quem está longe. A fé também alcança quem não pode viajar até aqui.", oracao: "Reze hoje por alguém que gostaria de estar em Aparecida, mas não pode." },
+            { texto: "O rio, o campanário, a nave principal: tudo em Aparecida convida ao olhar para o alto. Hoje, procure erguer os olhos além das preocupações do dia.", oracao: "Observe o céu por um instante e agradeça." },
+            { texto: "Muitos peregrinos caminham em grupo, apoiando uns aos outros. Ninguém precisa caminhar sozinho na fé — nem na vida.", oracao: "Entre em contato com alguém que você não fala há tempos." },
+            { texto: "A Sala das Promessas guarda milhares de histórias de graças recebidas. Talvez você também tenha uma história de gratidão para lembrar hoje.", oracao: "Relembre uma graça recebida no passado e agradeça por ela de novo." },
+            { texto: "Aparecida recebe romeiros de toda origem e condição. A casa de Nossa Senhora não tem porta fechada para ninguém.", oracao: "Pratique hoje um gesto de acolhimento com alguém diferente de você." },
+            { texto: "Antes de pedir, muitos peregrinos primeiro agradecem. Comece sua oração de hoje com gratidão, antes do pedido.", oracao: "Agradeça primeiro, peça depois." },
+            { texto: "A jornada até o Santuário pode ser longa, mas cada etapa tem seu valor — não só a chegada.", oracao: "Valorize uma etapa do seu dia, não apenas o resultado final." },
+            { texto: "Muitos peregrinos carregam junto consigo o nome de quem não pôde vir. Leve hoje, em pensamento, alguém que você ama.", oracao: "Dedique sua oração de hoje a uma pessoa querida." },
+            { texto: "A luz das velas, mesmo pequena, ilumina espaços grandes quando reunida. Sua fé, mesmo pequena, também ilumina ao seu redor.", oracao: "Pense em como sua fé ou seus valores já ajudaram alguém, mesmo sem perceber." },
+            { texto: "Voltar sempre é também um gesto de fé — romeiros retornam ano após ano. Que bom que você voltou aqui hoje.", oracao: "Agradeça por este momento de pausa que você se deu hoje." },
+            { texto: "Toda visita a Aparecida é, no fundo, uma forma de dizer 'eu ainda creio'. Que essa chama continue viva em você.", oracao: "Renove hoje, com suas próprias palavras, aquilo em que você crê." }
+        ];
+
+        const misteriosDoTerco = {
+            0: { nome: "Mistérios Gloriosos", dias: "domingo" },
+            1: { nome: "Mistérios Gozosos", dias: "segunda-feira" },
+            2: { nome: "Mistérios Dolorosos", dias: "terça-feira" },
+            3: { nome: "Mistérios Gloriosos", dias: "quarta-feira" },
+            4: { nome: "Mistérios Luminosos", dias: "quinta-feira" },
+            5: { nome: "Mistérios Dolorosos", dias: "sexta-feira" },
+            6: { nome: "Mistérios Gozosos", dias: "sábado" }
+        };
+
+        function diaDoAno(data) {
+            const inicio = new Date(data.getFullYear(), 0, 0);
+            const diff = data - inicio;
+            return Math.floor(diff / (1000 * 60 * 60 * 24));
+        }
+
+        function atualizarStreakReflexao() {
+            const hoje = new Date();
+            const hojeStr = hoje.toISOString().slice(0, 10);
+            const ontem = new Date(hoje);
+            ontem.setDate(hoje.getDate() - 1);
+            const ontemStr = ontem.toISOString().slice(0, 10);
+
+            let streak = parseInt(localStorage.getItem("guia_reflexao_streak")) || 0;
+            const ultimaData = localStorage.getItem("guia_reflexao_ultima_data");
+
+            if (ultimaData === hojeStr) {
+                // já contabilizado hoje, mantém.
+            } else if (ultimaData === ontemStr) {
+                streak += 1;
+            } else {
+                streak = 1;
+            }
+
+            localStorage.setItem("guia_reflexao_streak", streak);
+            localStorage.setItem("guia_reflexao_ultima_data", hojeStr);
+            return streak;
+        }
+
+        function compartilharReflexao(texto) {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Reflexão do Dia - Guia Aparecida',
+                    text: texto + ' — via Guia Turístico Aparecida',
+                    url: window.location.href
+                }).catch(console.error);
+            } else if (navigator.clipboard) {
+                navigator.clipboard.writeText(texto + ' — via Guia Turístico Aparecida ' + window.location.href);
+                alert('Texto copiado! Cole onde quiser compartilhar.');
+            }
+        }
+
+        function abrirReflexao() {
+            pararEscutaMural();
+            document.getElementById("search-area").style.display = "none";
+            document.getElementById("action-bar-container").style.display = "none";
+            document.getElementById("banner-container").style.display = "none";
+            document.getElementById("menu").innerHTML = "";
+
+            const hoje = new Date();
+            const idx = diaDoAno(hoje) % reflexoesDoDia.length;
+            const reflexao = reflexoesDoDia[idx];
+            const misterio = misteriosDoTerco[hoje.getDay()];
+            const streak = atualizarStreakReflexao();
+            const dataFormatada = hoje.toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
+
+            document.getElementById("pagina-interna").innerHTML = `
+                <button class="btn-voltar" onclick="voltarParaCategorias()">
+                    <i class="fas fa-arrow-left"></i> Voltar
+                </button>
+                <div class="content-card">
+                    <div class="mural-intro">
+                        <div class="icon-badge-inline"><i class="fas fa-dove"></i></div>
+                        <h3>Reflexão do Dia</h3>
+                        <p class="mural-subtitulo">Um momento diário de fé e serenidade, inspirado na devoção a Nossa Senhora Aparecida.</p>
+                    </div>
+
+                    <div class="reflexao-data">${dataFormatada}</div>
+
+                    <div class="reflexao-streak">
+                        <i class="fas fa-fire"></i>
+                        ${streak === 1 ? "Primeiro dia de reflexão por aqui!" : `Você reflete há ${streak} dias seguidos!`}
+                    </div>
+
+                    <div class="reflexao-misterio">
+                        <i class="fas fa-hands-praying"></i>
+                        <div>
+                            <strong>${misterio.nome}</strong>
+                            <span>Terço do dia (${misterio.dias})</span>
+                        </div>
+                    </div>
+
+                    <div class="reflexao-card">
+                        <p class="reflexao-texto">"${reflexao.texto}"</p>
+                        <div class="reflexao-divisor-fina"></div>
+                        <p class="reflexao-oracao"><i class="fas fa-praying-hands" style="margin-right:6px; color:var(--gold);"></i>${reflexao.oracao}</p>
+                    </div>
+
+                    <button class="btn-hero" style="color:#10263f; width:100%; justify-content:center;" onclick="compartilharReflexao('${reflexao.texto.replace(/'/g, "\\'")}')">
+                        <i class="fas fa-share-alt"></i> Compartilhar Reflexão
+                    </button>
+                </div>`;
+            window.scrollTo(0, 0);
+        }
+
         function abrirMissa() {
             pararEscutaMural();
             document.getElementById("search-area").style.display = "none";
