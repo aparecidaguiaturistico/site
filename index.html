@@ -1443,6 +1443,94 @@
             margin: 8px 0 0 22px;
         }
 
+        /* ===== AVISO DE MANUTENÇÃO CONCLUÍDA ===== */
+        .topo-fixo {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .topo-fixo .nav-sticky {
+            position: static;
+        }
+
+        .aviso-sistema {
+            background: linear-gradient(135deg, #e9f7ef, #d7f0e2);
+            border-bottom: 1px solid #b7e4c7;
+            padding: 7px 0;
+            animation: avisoSistemaEntrada 0.45s ease;
+        }
+
+        .aviso-sistema-inner {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .aviso-sistema-icon {
+            flex-shrink: 0;
+            color: #2f9e5c;
+            font-size: 15px;
+        }
+
+        .aviso-sistema-texto {
+            flex: 1;
+            min-width: 0;
+            font-size: 12.5px;
+            color: var(--text);
+            line-height: 1.4;
+            margin: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .aviso-sistema-texto strong {
+            color: #1b6e3c;
+        }
+
+        .aviso-sistema-fechar {
+            flex-shrink: 0;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #4c8a68;
+            font-size: 13px;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .aviso-sistema-fechar:hover {
+            background: rgba(0, 0, 0, 0.06);
+            color: #1b6e3c;
+        }
+
+        @keyframes avisoSistemaEntrada {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        body.dark-theme .aviso-sistema {
+            background: linear-gradient(135deg, rgba(47, 158, 92, 0.16), rgba(47, 158, 92, 0.08));
+            border-bottom-color: rgba(47, 158, 92, 0.3);
+        }
+
+        body.dark-theme .aviso-sistema-texto { color: #e8e2d4; }
+        body.dark-theme .aviso-sistema-texto strong { color: #6fd99a; }
+        body.dark-theme .aviso-sistema-fechar { color: #8fd6ab; }
+        body.dark-theme .aviso-sistema-fechar:hover { background: rgba(255, 255, 255, 0.08); }
+
+        @media (max-width: 600px) {
+            .aviso-sistema-texto {
+                font-size: 11.5px;
+                white-space: normal;
+                overflow: visible;
+                text-overflow: clip;
+            }
+        }
+
         body.dark-theme .aviso-seguranca {
             background: rgba(199, 154, 62, 0.12);
         }
@@ -2257,21 +2345,49 @@
         </div>
     </header>
 
-    <!-- ===== NAV STICKY ===== -->
-    <nav class="nav-sticky" id="navSticky">
-        <div class="container">
-            <div class="nav-links">
-                <a class="active" onclick="voltarParaCategorias()">Início</a>
-                <a onclick="selecionarCategoria('Pontos Turísticos')">Turismo</a>
-                <a onclick="selecionarCategoria('Hotéis e Pousadas')">Hotéis</a>
-                <a onclick="selecionarCategoria('Bares e Restaurantes')">Restaurantes</a>
-                <a onclick="selecionarCategoria('Lazer')">Lazer</a>
-                <a onclick="abrirMissa()"><i class="fas fa-broadcast-tower"></i> Missa ao Vivo</a>
-                <a onclick="abrirReflexao()"><i class="fas fa-dove"></i> Reflexão</a>
-                <a onclick="abrirMural()"><i class="fas fa-feather-alt"></i> Mural</a>
+    <!-- ===== NAV STICKY + AVISO (fixos juntos no topo) ===== -->
+    <div class="topo-fixo">
+        <nav class="nav-sticky" id="navSticky">
+            <div class="container">
+                <div class="nav-links">
+                    <a class="active" onclick="voltarParaCategorias()">Início</a>
+                    <a onclick="selecionarCategoria('Pontos Turísticos')">Turismo</a>
+                    <a onclick="selecionarCategoria('Hotéis e Pousadas')">Hotéis</a>
+                    <a onclick="selecionarCategoria('Bares e Restaurantes')">Restaurantes</a>
+                    <a onclick="selecionarCategoria('Lazer')">Lazer</a>
+                    <a onclick="abrirMissa()"><i class="fas fa-broadcast-tower"></i> Missa ao Vivo</a>
+                    <a onclick="abrirReflexao()"><i class="fas fa-dove"></i> Reflexão</a>
+                    <a onclick="abrirMural()"><i class="fas fa-feather-alt"></i> Mural</a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- ===== AVISO DE MANUTENÇÃO CONCLUÍDA ===== -->
+        <div id="avisoSistema" class="aviso-sistema">
+            <div class="container aviso-sistema-inner">
+                <i class="fas fa-circle-check aviso-sistema-icon"></i>
+                <p class="aviso-sistema-texto"><strong>Tudo 100% funcionando:</strong> Mural de Recados, Pesquisa Rápida, Avaliações e Comentários já estão de volta ao ar.</p>
+                <button class="aviso-sistema-fechar" onclick="fecharAvisoSistema()" aria-label="Fechar aviso">
+                    <i class="fas fa-xmark"></i>
+                </button>
             </div>
         </div>
-    </nav>
+    </div>
+    <script>
+
+        (function() {
+            if (localStorage.getItem("aviso_manutencao_jul2026_fechado")) {
+                var el = document.getElementById("avisoSistema");
+                if (el) el.style.display = "none";
+            }
+        })();
+
+        function fecharAvisoSistema() {
+            var el = document.getElementById("avisoSistema");
+            if (el) el.style.display = "none";
+            localStorage.setItem("aviso_manutencao_jul2026_fechado", "true");
+        }
+    </script>
 
 <center>
     <!-- Histats.com  (div with counter) -->
@@ -2395,10 +2511,31 @@
                 <span data-step="2"></span>
                 <span data-step="3"></span>
                 <span data-step="4"></span>
+                <span data-step="5"></span>
             </div>
 
-            <!-- Passo 1: cidade -->
+            <!-- Passo especial: retomar pesquisa que ficou incompleta -->
+            <div class="pesquisa-step" data-step="retomar">
+                <div class="icon-badge-inline"><i class="fas fa-rotate-left"></i></div>
+                <h4 style="text-align:center;">Você não finalizou nossa pesquisa</h4>
+                <p class="mural-subtitulo" style="text-align:center; margin-bottom:16px;">Pode ter caído a internet ou você precisou sair da página. Quer continuar de onde parou?</p>
+                <button class="btn-hero" style="width:100%; justify-content:center; color:#10263f;" onclick="retomarPesquisa()">Continuar de onde parei</button>
+                <span class="pesquisa-pular" onclick="desistirPesquisa()">Não responder agora</span>
+            </div>
+
+            <!-- Passo 1: nome -->
             <div class="pesquisa-step ativo" data-step="1">
+                <div class="icon-badge-inline"><i class="fas fa-user"></i></div>
+                <h4 style="text-align:center;">Qual é o seu nome?</h4>
+                <div class="pesquisa-input-wrap">
+                    <input type="text" id="pesquisaNomeInput" placeholder="Ex: Maria" maxlength="60">
+                </div>
+                <button class="btn-hero" style="width:100%; justify-content:center; color:#10263f;" onclick="responderNome(false)">Continuar</button>
+                <span class="pesquisa-pular" onclick="responderNome(true)">Prefiro não informar</span>
+            </div>
+
+            <!-- Passo 2: cidade -->
+            <div class="pesquisa-step" data-step="2">
                 <div class="icon-badge-inline"><i class="fas fa-map-location-dot"></i></div>
                 <h4 style="text-align:center;">De qual cidade você é?</h4>
                 <div class="pesquisa-input-wrap">
@@ -2408,8 +2545,8 @@
                 <span class="pesquisa-pular" onclick="responderCidade(true)">Prefiro não informar</span>
             </div>
 
-            <!-- Passo 2: quantas vezes já visitou -->
-            <div class="pesquisa-step" data-step="2">
+            <!-- Passo 3: quantas vezes já visitou -->
+            <div class="pesquisa-step" data-step="3">
                 <div class="icon-badge-inline"><i class="fas fa-church"></i></div>
                 <h4 style="text-align:center;">Quantas vezes você já visitou Aparecida?</h4>
                 <div class="pesquisa-opcoes">
@@ -2420,8 +2557,8 @@
                 </div>
             </div>
 
-            <!-- Passo 3: já baixou o app -->
-            <div class="pesquisa-step" data-step="3">
+            <!-- Passo 4: já baixou o app -->
+            <div class="pesquisa-step" data-step="4">
                 <div class="icon-badge-inline"><i class="fas fa-mobile-screen-button"></i></div>
                 <h4 style="text-align:center;">Você já baixou o nosso aplicativo?</h4>
                 <div class="pesquisa-opcoes">
@@ -2430,8 +2567,8 @@
                 </div>
             </div>
 
-            <!-- Passo 4: interesse em baixar (só quem respondeu "ainda não") -->
-            <div class="pesquisa-step" data-step="4">
+            <!-- Passo 5: interesse em baixar (só quem respondeu "ainda não") -->
+            <div class="pesquisa-step" data-step="5">
                 <div class="icon-badge-inline"><i class="fas fa-heart"></i></div>
                 <h4 style="text-align:center;">Teria interesse em baixar o app agora?</h4>
                 <p class="mural-subtitulo" style="margin-bottom:16px;">Tenha pontos turísticos, hotéis, restaurantes e números úteis à mão, mesmo sem internet.</p>
@@ -10773,7 +10910,7 @@ const firebaseConfig = {
                         <i class="fas fa-star" onclick="definirNotaLocal(4)"></i>
                         <i class="fas fa-star" onclick="definirNotaLocal(5)"></i>
                     </div>
-                    <form class="mural-form" onsubmit="enviarAvaliacaoLocal(event, '${slug}', ${JSON.stringify(paginas[indicePagina].nome)})">
+                    <form class="mural-form" onsubmit="enviarAvaliacaoLocal(event, '${slug}')">
                         <input type="text" id="avaliacao-nome-${slug}" class="mural-input" placeholder="Seu nome (opcional)" maxlength="40">
                         <textarea id="avaliacao-texto-${slug}" class="mural-textarea" placeholder="Conte como foi sua experiência..." maxlength="300"></textarea>
                         <button type="submit" id="btn-avaliacao-enviar" class="btn-mural-enviar"><i class="fas fa-paper-plane"></i> Enviar Avaliação</button>
@@ -10837,7 +10974,7 @@ const firebaseConfig = {
                 });
         }
 
-        function enviarAvaliacaoLocal(event, slug, nomeLocal) {
+        function enviarAvaliacaoLocal(event, slug) {
             event.preventDefault();
 
             if (!firebaseConfigurado || !db) {
@@ -10848,6 +10985,9 @@ const firebaseConfig = {
                 alert("Selecione uma nota de 1 a 5 estrelas antes de enviar.");
                 return;
             }
+
+            const paginaEncontrada = paginas.find(p => slugify(p.nome) === slug);
+            const nomeLocal = paginaEncontrada ? paginaEncontrada.nome : slug;
 
             const nomeEl = document.getElementById(`avaliacao-nome-${slug}`);
             const textoEl = document.getElementById(`avaliacao-texto-${slug}`);
@@ -11178,6 +11318,12 @@ const firebaseConfig = {
            Respostas viram: (1) eventos no GA4, para ver tudo agregado
            nos relatórios, e (2) um documento no Firestore (coleção
            "pesquisas"), para consulta detalhada resposta por resposta.
+
+           Se a pessoa fecha no meio (ex: caiu a internet), o progresso
+           fica salvo e, na próxima vez que abrir o site, é oferecida a
+           opção de continuar de onde parou ou não responder. Só quando
+           ela escolhe "não responder" nessa segunda chance é que o site
+           espera 7 dias antes de insistir de novo.
         =========================================================== */
         let pesquisaRespostas = {};
 
@@ -11192,16 +11338,25 @@ const firebaseConfig = {
             return dias < 7; // não insiste de novo antes de 7 dias
         }
 
+        function pesquisaTemProgressoSalvo() {
+            return !!localStorage.getItem("guia_pesquisa_estado");
+        }
+
         function iniciarPesquisaAutomatica() {
             if (pesquisaJaRespondida() || pesquisaFoiAdiadaRecentemente()) return;
             // Espera 30s de navegação antes de mostrar, pra não interromper
             // a pessoa assim que ela abre o site.
-            setTimeout(abrirPesquisa, 30000);
+            if (pesquisaTemProgressoSalvo()) {
+                setTimeout(abrirRetomarPesquisa, 30000);
+            } else {
+                setTimeout(abrirPesquisa, 30000);
+            }
         }
 
         function abrirPesquisa() {
             if (pesquisaJaRespondida() || document.getElementById("modalPesquisa").style.display === "flex") return;
             pesquisaRespostas = {};
+            document.getElementById("pesquisaNomeInput").value = "";
             document.getElementById("pesquisaCidadeInput").value = "";
             mostrarPassoPesquisa(1);
             document.getElementById("modalPesquisa").style.display = "flex";
@@ -11210,11 +11365,59 @@ const firebaseConfig = {
             }
         }
 
+        function abrirRetomarPesquisa() {
+            if (pesquisaJaRespondida() || document.getElementById("modalPesquisa").style.display === "flex") return;
+            mostrarPassoPesquisa("retomar");
+            document.getElementById("modalPesquisa").style.display = "flex";
+        }
+
+        function retomarPesquisa() {
+            let passoSalvo = 1;
+            const estadoSalvo = localStorage.getItem("guia_pesquisa_estado");
+            if (estadoSalvo) {
+                try {
+                    const estado = JSON.parse(estadoSalvo);
+                    pesquisaRespostas = estado.respostas || {};
+                    passoSalvo = estado.passo || 1;
+                    if (pesquisaRespostas.nome && pesquisaRespostas.nome !== "Não informado") {
+                        document.getElementById("pesquisaNomeInput").value = pesquisaRespostas.nome;
+                    }
+                    if (pesquisaRespostas.cidade && pesquisaRespostas.cidade !== "Não informado") {
+                        document.getElementById("pesquisaCidadeInput").value = pesquisaRespostas.cidade;
+                    }
+                } catch (e) {
+                    passoSalvo = 1;
+                }
+            }
+            mostrarPassoPesquisa(passoSalvo);
+        }
+
+        function desistirPesquisa() {
+            localStorage.removeItem("guia_pesquisa_estado");
+            localStorage.setItem("guia_pesquisa_adiada_em", Date.now().toString());
+            document.getElementById("modalPesquisa").style.display = "none";
+        }
+
         function fecharPesquisa() {
             document.getElementById("modalPesquisa").style.display = "none";
-            if (!pesquisaJaRespondida()) {
-                localStorage.setItem("guia_pesquisa_adiada_em", Date.now().toString());
+            if (pesquisaJaRespondida()) return;
+
+            const passoAtivo = document.querySelector(".pesquisa-step.ativo");
+            const passo = passoAtivo ? passoAtivo.dataset.step : null;
+
+            if (passo === "retomar") {
+                // Fechou a tela de "quer continuar?" sem decidir: conta
+                // como recusa e aplica a espera de 7 dias.
+                desistirPesquisa();
+                return;
             }
+
+            // Fechou no meio da pesquisa normal: salva o progresso para
+            // oferecer a retomada na próxima visita.
+            localStorage.setItem("guia_pesquisa_estado", JSON.stringify({
+                passo: passo,
+                respostas: pesquisaRespostas
+            }));
         }
 
         function mostrarPassoPesquisa(passo) {
@@ -11222,7 +11425,7 @@ const firebaseConfig = {
                 el.classList.toggle("ativo", el.dataset.step == passo);
             });
             const progresso = document.getElementById("pesquisaProgress");
-            if (passo === "final") {
+            if (passo === "final" || passo === "retomar") {
                 progresso.style.visibility = "hidden";
             } else {
                 progresso.style.visibility = "visible";
@@ -11243,15 +11446,21 @@ const firebaseConfig = {
             }
         }
 
+        function responderNome(pulou) {
+            const valor = pulou ? "" : document.getElementById("pesquisaNomeInput").value.trim();
+            registrarRespostaPesquisa("nome", valor || "Não informado");
+            mostrarPassoPesquisa(2);
+        }
+
         function responderCidade(pulou) {
             const valor = pulou ? "" : document.getElementById("pesquisaCidadeInput").value.trim();
             registrarRespostaPesquisa("cidade", valor || "Não informado");
-            mostrarPassoPesquisa(2);
+            mostrarPassoPesquisa(3);
         }
 
         function responderVisitas(resposta) {
             registrarRespostaPesquisa("visitas_aparecida", resposta);
-            mostrarPassoPesquisa(3);
+            mostrarPassoPesquisa(4);
         }
 
         function responderBaixouApp(baixou) {
@@ -11259,7 +11468,7 @@ const firebaseConfig = {
             if (baixou) {
                 finalizarPesquisa();
             } else {
-                mostrarPassoPesquisa(4);
+                mostrarPassoPesquisa(5);
             }
         }
 
@@ -11274,6 +11483,7 @@ const firebaseConfig = {
         function finalizarPesquisa() {
             localStorage.setItem("guia_pesquisa_respondida", "true");
             localStorage.removeItem("guia_pesquisa_adiada_em");
+            localStorage.removeItem("guia_pesquisa_estado");
             mostrarPassoPesquisa("final");
 
             if (typeof gtag === "function") {
