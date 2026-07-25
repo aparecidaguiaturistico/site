@@ -82,6 +82,13 @@
             --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
+        /* ===== RESET GLOBAL — evita elementos com width:100% + padding
+           "vazando" para fora do container (causa do desalinhamento
+           de campos como o formulário de avaliações) ===== */
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Inter', sans-serif;
             background: var(--cream);
@@ -287,8 +294,33 @@
 
         .nav-links {
             display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
+            width: 100%;
+            min-width: 0;
+            gap: 6px;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+            scrollbar-color: var(--gold) transparent;
+            padding-bottom: 4px;
+        }
+
+        .nav-links::-webkit-scrollbar {
+            height: 5px;
+        }
+
+        .nav-links::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .nav-links::-webkit-scrollbar-thumb {
+            background: var(--gold);
+            border-radius: 10px;
+        }
+
+        .nav-links a {
+            flex-shrink: 0;
+            white-space: nowrap;
         }
 
         .nav-links a {
@@ -296,7 +328,7 @@
             font-size: 0.8rem;
             font-weight: 600;
             color: var(--text-light);
-            padding: 8px 16px;
+            padding: 8px 13px;
             border-radius: 30px;
             transition: var(--transition);
             background: transparent;
@@ -702,6 +734,19 @@
             z-index: 2;
         }
 
+        /* ===== COPYRIGHT — aviso de direitos autorais ===== */
+        .site-copyright {
+            text-align: center;
+            font-size: 11.5px;
+            color: var(--text-light);
+            padding: 18px 16px 80px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body.dark-theme .site-copyright {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
         /* ===== RODAPÉ — "parceiros do peregrino" ===== */
         .adsense-footer {
             position: fixed;
@@ -1100,7 +1145,7 @@
             }
 
             .nav-links {
-                justify-content: center;
+                justify-content: flex-start;
             }
 
             .category-grid {
@@ -2454,6 +2499,10 @@
             <div id="pagina-interna"></div>
         </div>
 
+        <div class="site-copyright">
+            © <span id="copyright-ano"></span> Guia Aparecida (aparecidaguiaturistico.com.br). Todos os direitos reservados.
+        </div>
+
     </div>
 
     <!-- ===== RODAPÉ FIXO (Anúncios) ===== -->
@@ -2708,6 +2757,32 @@ const firebaseConfig = {
     <!-- ============================================================ -->
     <!-- ===== JAVASCRIPT COMPLETO (mesmo conteúdo do app) ===== -->
     <script>
+        // Rola a página até logo abaixo do menu fixo (nav-sticky), em vez de
+        // ir para o topo absoluto — assim o conteúdo da aba clicada aparece
+        // imediatamente, sem esconder atrás da imagem grande do topo.
+        function rolarParaConteudo() {
+            const alvo = document.querySelector(".topo-fixo");
+            if (alvo) {
+                const y = alvo.getBoundingClientRect().top + window.pageYOffset;
+                window.scrollTo({ top: y, behavior: "auto" });
+            } else {
+                window.scrollTo(0, 0);
+            }
+        }
+
+        // Permite rolar a barra de abas com a roda do mouse (sem precisar
+        // arrastar a barrinha de rolagem, mais natural em computador).
+        document.addEventListener("DOMContentLoaded", function() {
+            const barraAbas = document.querySelector(".nav-links");
+            if (barraAbas) {
+                barraAbas.addEventListener("wheel", function(e) {
+                    if (e.deltaY === 0) return;
+                    e.preventDefault();
+                    barraAbas.scrollLeft += e.deltaY;
+                }, { passive: false });
+            }
+        });
+
         // ==================== PWA - Manifest e Service Worker Dinâmicos ====================
         (function() {
             const manifestObj = {
@@ -10146,6 +10221,7 @@ const firebaseConfig = {
             categoriaAtual = cat;
             regiaoFiltro = null;
             renderMenu();
+            rolarParaConteudo();
         }
 
         function filtrarRegiao(reg) {
@@ -10159,6 +10235,7 @@ const firebaseConfig = {
             regiaoFiltro = null;
             document.getElementById("search").value = "";
             renderMenu();
+            rolarParaConteudo();
         }
 
         function buscar() {
@@ -10185,7 +10262,7 @@ const firebaseConfig = {
                     ${paginas[i].html}
                     <div id="avaliacao-local-container"></div>
                 </div>`;
-            window.scrollTo(0, 0);
+            rolarParaConteudo();
 
             renderAvaliacaoLocal(i);
 
@@ -10640,7 +10717,7 @@ const firebaseConfig = {
                     <div class="mural-divisor"><span>Recados dos Peregrinos</span></div>
                     <div class="mural-lista" id="mural-lista"></div>
                 </div>`;
-            window.scrollTo(0, 0);
+            rolarParaConteudo();
             escutarRecados();
         }
 
@@ -10650,6 +10727,7 @@ const firebaseConfig = {
             document.getElementById("banner-container").style.display = "none";
             document.getElementById("menu").innerHTML = "";
             renderMural();
+            rolarParaConteudo();
         }
 
         /* ===========================================================
@@ -10714,7 +10792,7 @@ const firebaseConfig = {
                     </div>
                     <div id="roteiro-resultado"></div>
                 </div>`;
-            window.scrollTo(0, 0);
+            rolarParaConteudo();
 
             const salvo = JSON.parse(localStorage.getItem("guia_roteiro") || "null");
             if (salvo && Array.isArray(salvo.indices) && salvo.indices.length) {
@@ -10869,7 +10947,7 @@ const firebaseConfig = {
                     </div>
                     <div class="passaporte-grid">${gridHtml}</div>
                 </div>`;
-            window.scrollTo(0, 0);
+            rolarParaConteudo();
         }
 
         /* ===========================================================
@@ -11161,7 +11239,7 @@ const firebaseConfig = {
                         <i class="fas fa-share-alt"></i> Compartilhar Reflexão
                     </button>
                 </div>`;
-            window.scrollTo(0, 0);
+            rolarParaConteudo();
         }
 
         function abrirMissa() {
@@ -11187,7 +11265,7 @@ const firebaseConfig = {
                         <i class="fab fa-youtube"></i> Assistir no YouTube
                     </a>
                 </div>`;
-            window.scrollTo(0, 0);
+            rolarParaConteudo();
         }
 
         /* ===========================================================
@@ -11310,7 +11388,7 @@ const firebaseConfig = {
                         </a>
                     </div>
                 </div>`;
-            window.scrollTo(0, 0);
+            rolarParaConteudo();
         }
 
         /* ===========================================================
@@ -11503,6 +11581,8 @@ const firebaseConfig = {
             renderMenu();
             iniciarBannerRandomico();
             iniciarPesquisaAutomatica();
+            const anoEl = document.getElementById("copyright-ano");
+            if (anoEl) anoEl.textContent = new Date().getFullYear();
         };
     </script>
 </body>
