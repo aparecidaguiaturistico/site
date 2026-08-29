@@ -2382,8 +2382,8 @@
             <h2>Guia Turístico <span>Aparecida</span></h2>
             <p>Descubra pontos turísticos, hotéis, restaurantes e serviços de quem visita ou vive a fé em Aparecida.</p>
             <div class="hero-actions">
-                <a class="btn-hero" href="https://github.com/aparecidaguiaturistico/Guia/releases/download/1.O.4/appguiaturistico.3.apk" onclick="event.preventDefault(); registrarDownload('hero');">
-                    <i class="fas fa-download"></i> Baixar Aplicativo
+                <a class="btn-hero" href="https://play.google.com/store/apps/details?id=com.appguiaturistico" target="_blank" rel="noopener" onclick="registrarDownload('hero');">
+                    <i class="fab fa-google-play"></i> Baixar na Play Store
                 </a>
             </div>
             </div>
@@ -11268,24 +11268,17 @@ const firebaseConfig = {
         /* ===========================================================
            BAIXAR APLICATIVO (link direto + rastreamento Analytics)
         =========================================================== */
-        const APK_URL = "https://github.com/aparecidaguiaturistico/Guia/releases/download/1.O.4/appguiaturistico.3.apk";
+        const APK_URL = "https://play.google.com/store/apps/details?id=com.appguiaturistico";
 
         function registrarDownload(origem) {
-            let jaNavegou = false;
-            function irParaDownload() {
-                if (jaNavegou) return;
-                jaNavegou = true;
-                window.location.href = APK_URL;
-            }
+            // O link já abre a Play Store em uma nova aba (target="_blank"),
+            // então aqui só registramos o evento no Analytics para fins de estatística.
             if (typeof gtag === "function") {
                 gtag('event', 'download_apk', {
                     'event_category': 'engagement',
                     'event_label': origem
                 });
             }
-            // Garante que o download aconteça mesmo se o Analytics
-            // estiver bloqueado (ex: adblock) ou demorar para responder.
-            setTimeout(irParaDownload, 300);
         }
 
         function abrirDownload() {
@@ -11300,23 +11293,23 @@ const firebaseConfig = {
                 </button>
                 <div class="content-card">
                     <div class="mural-intro">
-                        <div class="icon-badge-inline"><i class="fas fa-download"></i></div>
+                        <div class="icon-badge-inline"><i class="fab fa-google-play"></i></div>
                         <h3>Baixar Aplicativo</h3>
-                        <p class="mural-subtitulo">Instale o Guia Turístico Aparecida no seu Android e tenha pontos turísticos, hotéis, restaurantes e números úteis à mão, mesmo sem internet.</p>
+                        <p class="mural-subtitulo">O Guia Turístico Aparecida já está disponível oficialmente na Google Play Store. Instale no seu Android e tenha pontos turísticos, hotéis, restaurantes e números úteis à mão, mesmo sem internet.</p>
                     </div>
 
                     <div class="download-cta-wrap">
-                        <a class="btn-hero" style="color:#10263f;" href="${APK_URL}" onclick="event.preventDefault(); registrarDownload('topo_pagina');">
-                            <i class="fas fa-download"></i> Baixar Aplicativo (.apk)
+                        <a class="btn-hero" style="color:#10263f;" href="${APK_URL}" target="_blank" rel="noopener" onclick="registrarDownload('topo_pagina');">
+                            <i class="fab fa-google-play"></i> Baixar na Play Store
                         </a>
-                        <div class="download-selo"><i class="fas fa-check-circle"></i> Arquivo oficial do Guia Turístico Aparecida</div>
+                        <div class="download-selo"><i class="fas fa-check-circle"></i> App oficial disponível na Google Play</div>
                     </div>
 
                     <div class="aviso-seguranca">
                         <i class="fas fa-shield-alt"></i>
                         <div>
-                            <strong>É normal o celular mostrar um aviso. Isso não significa que o app é perigoso.</strong>
-                            <p>Como este aplicativo é instalado diretamente (fora da Play Store), o Android exibe uma mensagem de alerta padrão para qualquer app baixado assim. É apenas uma proteção automática do sistema. Siga o passo a passo abaixo para concluir a instalação com segurança.</p>
+                            <strong>Instalação segura e oficial, direto pela Google Play.</strong>
+                            <p>Agora o aplicativo é instalado como qualquer outro app da loja: sem avisos de "fonte desconhecida" e com atualizações automáticas pelo próprio celular.</p>
                         </div>
                     </div>
 
@@ -11325,33 +11318,19 @@ const firebaseConfig = {
                         <div class="step-item">
                             <div class="step-num">1</div>
                             <div class="step-texto">
-                                <strong>Toque no botão "Baixar Aplicativo"</strong>
-                                <p>O download do arquivo <code>.apk</code> vai começar automaticamente pelo seu navegador (Chrome, Samsung Internet, etc.).</p>
+                                <strong>Toque no botão "Baixar na Play Store"</strong>
+                                <p>Você será levado direto para a página do app na Google Play Store.</p>
                             </div>
                         </div>
                         <div class="step-item">
                             <div class="step-num">2</div>
                             <div class="step-texto">
-                                <strong>Abra o arquivo baixado</strong>
-                                <p>Depois que o download terminar, toque na notificação de download ou vá até a pasta <code>Downloads</code> do celular e toque no arquivo <code>appguiaturistico.3.apk</code>.</p>
+                                <strong>Toque em "Instalar"</strong>
+                                <p>A própria Play Store cuida do download e da instalação, sem nenhuma etapa extra ou aviso de segurança.</p>
                             </div>
                         </div>
                         <div class="step-item">
                             <div class="step-num">3</div>
-                            <div class="step-texto">
-                                <strong>Se aparecer o aviso "Instalar apps desconhecidos"</strong>
-                                <p>Toque em <code>Configurações</code> na própria mensagem e ative a opção <code>Permitir desta fonte</code>. Esse aviso aparece porque o app não veio da Play Store, e não indica nenhum problema.</p>
-                            </div>
-                        </div>
-                        <div class="step-item">
-                            <div class="step-num">4</div>
-                            <div class="step-texto">
-                                <strong>Volte e toque em "Instalar"</strong>
-                                <p>Com a permissão ativada, volte para a tela anterior (botão voltar do celular) e toque em <code>Instalar</code> novamente.</p>
-                            </div>
-                        </div>
-                        <div class="step-item">
-                            <div class="step-num">5</div>
                             <div class="step-texto">
                                 <strong>Pronto! Toque em "Abrir"</strong>
                                 <p>Quando a instalação terminar, é só tocar em <code>Abrir</code> para começar a usar o Guia Turístico Aparecida.</p>
@@ -11362,16 +11341,12 @@ const firebaseConfig = {
                     <div class="tutorial-titulo-secao"><i class="fas fa-circle-question"></i> Dúvidas frequentes</div>
                     <div class="faq-lista">
                         <details class="faq-item">
-                            <summary>Por que o app não está na Play Store?</summary>
-                            <p>Optamos por disponibilizar o aplicativo diretamente por download para atualizar o conteúdo com mais agilidade para os romeiros e turistas, sem depender dos prazos de revisão das lojas de aplicativos.</p>
+                            <summary>O app está na Play Store?</summary>
+                            <p>Sim! O Guia Turístico Aparecida já está disponível oficialmente na Google Play Store, com todas as atualizações de conteúdo chegando automaticamente pelo próprio celular.</p>
                         </details>
                         <details class="faq-item">
-                            <summary>É seguro instalar um APK fora da Play Store?</summary>
-                            <p>Sim, desde que o arquivo venha de uma fonte confiável, como este site oficial do Guia Turístico Aparecida. O aviso do Android é apenas um alerta padrão de segurança, exibido para qualquer instalação feita fora da loja.</p>
-                        </details>
-                        <details class="faq-item">
-                            <summary>O aviso não some depois que eu permito?</summary>
-                            <p>Feche a tela de instalação, abra novamente o arquivo <code>.apk</code> na pasta Downloads e tente instalar mais uma vez. Em alguns modelos de celular é necessário reiniciar o app de Arquivos após permitir a instalação.</p>
+                            <summary>É seguro instalar esse aplicativo?</summary>
+                            <p>Sim. Por estar na Google Play Store, o app passa pelas verificações de segurança padrão do Google antes de ficar disponível para instalação.</p>
                         </details>
                         <details class="faq-item">
                             <summary>Consigo usar o aplicativo sem internet?</summary>
@@ -11380,8 +11355,8 @@ const firebaseConfig = {
                     </div>
 
                     <div class="download-cta-wrap" style="margin-top: 10px;">
-                        <a class="btn-hero" style="color:#10263f;" href="${APK_URL}" onclick="event.preventDefault(); registrarDownload('rodape_pagina');">
-                            <i class="fas fa-download"></i> Baixar Aplicativo Agora
+                        <a class="btn-hero" style="color:#10263f;" href="${APK_URL}" target="_blank" rel="noopener" onclick="registrarDownload('rodape_pagina');">
+                            <i class="fab fa-google-play"></i> Baixar na Play Store Agora
                         </a>
                     </div>
                 </div>`;
