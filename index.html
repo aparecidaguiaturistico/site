@@ -2349,6 +2349,118 @@
         body.dark-theme .review-nome {
             color: #f1ece0 !important;
         }
+
+        /* ===========================================================
+           NOVENA A NOSSA SENHORA APARECIDA
+           (mesma funcionalidade do app, adaptada à identidade do site)
+        =========================================================== */
+        .novena-overlay {
+            position: fixed; inset: 0; background: rgba(16,38,63,0.55); z-index: 3000;
+            display: none; align-items: flex-end; justify-content: center; padding: 0;
+        }
+        .novena-overlay.aberto { display: flex; }
+        .novena-painel {
+            background: var(--paper); width: 100%; max-width: 620px; max-height: 88vh; overflow-y: auto;
+            border-radius: var(--radius) var(--radius) 0 0; padding-bottom: 24px;
+            font-family: 'Inter', sans-serif;
+        }
+        @media (min-width: 720px) {
+            .novena-overlay { align-items: center; }
+            .novena-painel { border-radius: var(--radius); max-height: 82vh; }
+        }
+        .novena-header {
+            background: linear-gradient(120deg, var(--primary-dark), var(--primary));
+            color: #fff; padding: 22px 22px 18px; border-radius: var(--radius) var(--radius) 0 0; position: relative;
+        }
+        @media (min-width: 720px) { .novena-header { border-radius: var(--radius) var(--radius) 0 0; } }
+        .novena-header h3 { margin: 0 0 4px; font-size: 18px; font-weight: 600; font-family: 'Fraunces', serif; }
+        .novena-header p { margin: 0; font-size: 12.5px; opacity: 0.9; font-family: 'Inter', sans-serif; }
+        .novena-close {
+            position: absolute; top: 14px; right: 14px; background: rgba(255,255,255,0.15);
+            border: none; color: #fff; width: 32px; height: 32px; border-radius: 10px; font-size: 15px; cursor: pointer;
+        }
+        .novena-progresso { padding: 16px 22px 0; }
+        .novena-progresso-barra { background: var(--line); border-radius: 8px; height: 8px; overflow: hidden; }
+        .novena-progresso-barra > div { background: var(--gold); height: 100%; transition: width 0.3s; }
+        .novena-progresso-texto { font-size: 12px; color: var(--text-light); margin: 6px 0 0; }
+        .novena-dias { padding: 12px 14px 0; display: flex; flex-direction: column; gap: 10px; }
+        .novena-dia-card {
+            border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 14px 16px; background: var(--cream);
+        }
+        .novena-dia-card.hoje { border-color: var(--gold); background: #fff8e8; }
+        .novena-dia-topo { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+        .novena-dia-topo strong { font-size: 13.5px; color: var(--text); font-family: 'Inter', sans-serif; }
+        .novena-dia-badge {
+            font-size: 10px; font-weight: 700; color: #fff; background: var(--gold);
+            padding: 2px 9px; border-radius: 20px; letter-spacing: 0.03em;
+        }
+        .novena-dia-tema { font-size: 12.5px; color: var(--primary); font-weight: 600; margin: 0 0 6px; font-style: italic; }
+        .novena-dia-texto { font-size: 13px; color: var(--text-light); line-height: 1.5; margin: 0 0 10px; }
+        .novena-oracao { font-size: 12px; color: var(--text-light); background: #fff; border-radius: 10px; padding: 10px 12px; margin-bottom: 8px; border: 1px dashed var(--line); }
+        .novena-oracao b { display: block; margin-bottom: 3px; color: var(--primary-dark); font-size: 11.5px; }
+        .novena-marcar {
+            border: none; border-radius: 10px; padding: 10px 12px; font-size: 12.5px; font-weight: 700;
+            width: 100%; cursor: pointer; font-family: 'Inter', sans-serif;
+            background: var(--line); color: var(--text-light); transition: var(--transition);
+        }
+        .novena-marcar.feito { background: #2e7d32; color: #fff; }
+        body.dark-theme .novena-painel { background: #142943 !important; }
+        body.dark-theme .novena-dia-card { background: #0d1c2e !important; border-color: #1f3a56 !important; }
+        body.dark-theme .novena-dia-card.hoje { background: #2b2410 !important; border-color: var(--gold) !important; }
+        body.dark-theme .novena-dia-topo strong,
+        body.dark-theme .novena-dia-texto,
+        body.dark-theme .novena-oracao,
+        body.dark-theme .novena-progresso-texto { color: #e4dfd2 !important; }
+        body.dark-theme .novena-oracao { background: #0d1c2e !important; }
+        body.dark-theme .novena-marcar { background: #0d1c2e !important; color: #e4dfd2 !important; }
+
+        /* --- Cartão sazonal da Novena, exibido perto do topo da home --- */
+        #novena-home-card {
+            display: none; align-items: center; gap: 14px;
+            background: linear-gradient(120deg, var(--primary-dark) 0%, var(--primary) 55%, var(--gold) 145%);
+            border-radius: var(--radius); padding: 15px 18px; margin: 0 0 16px; cursor: pointer;
+            box-shadow: var(--card-shadow); position: relative; overflow: hidden;
+            animation: novenaCardPulso 2.6s ease-in-out infinite;
+        }
+        #novena-home-card.mostrar { display: flex; }
+        #novena-home-card::after {
+            content: ""; position: absolute; inset: 0;
+            background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,0.28) 45%, transparent 60%);
+            background-size: 250% 100%; animation: novenaCardBrilho 3.2s linear infinite;
+        }
+        @keyframes novenaCardPulso { 0%,100% { transform: scale(1); } 50% { transform: scale(1.012); } }
+        @keyframes novenaCardBrilho { 0% { background-position: 200% 0; } 100% { background-position: -50% 0; } }
+        .novena-home-icone {
+            width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,0.18);
+            display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+            color: var(--gold-light); font-size: 18px; position: relative; z-index: 1;
+        }
+        .novena-home-texto { flex: 1; position: relative; z-index: 1; }
+        .novena-home-texto h4 { margin: 0 0 2px; font-size: 14px; font-weight: 600; color: #fff; font-family: 'Fraunces', serif; }
+        .novena-home-texto p { margin: 0; font-size: 12px; color: var(--gold-light); font-weight: 600; font-family: 'Inter', sans-serif; }
+        #novena-home-card > i.fa-chevron-right { color: #fff; opacity: 0.85; position: relative; z-index: 1; }
+
+        /* ===========================================================
+           TEMA SAZONAL "OUTUBRO DOURADO" (mês de N. Sra. Aparecida)
+        =========================================================== */
+        .outubro-ribbon {
+            display: inline-flex; align-items: center; gap: 6px; margin: 0 0 14px;
+            background: linear-gradient(90deg, var(--gold), var(--gold-light), var(--gold));
+            color: var(--primary-dark); font-weight: 800; font-size: 11.5px; letter-spacing: 0.05em;
+            padding: 7px 18px; border-radius: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            white-space: nowrap; font-family: 'Inter', sans-serif; text-transform: uppercase;
+        }
+        body.tema-outubro-dourado .hero-header::after {
+            content: ""; position: absolute; inset: 0; z-index: 1;
+            background: linear-gradient(180deg, rgba(199,154,62,0.30) 0%, rgba(31,92,139,0.12) 55%, transparent 100%);
+            pointer-events: none;
+        }
+        body.tema-outubro-dourado .nav-links a.active { color: var(--gold) !important; }
+        body.tema-outubro-dourado .search-box {
+            border: 1.5px solid var(--gold) !important;
+            box-shadow: 0 0 0 3px rgba(199,154,62,0.18) !important;
+        }
+        #confeteCanvas { position: fixed; inset: 0; z-index: 4000; pointer-events: none; }
     </style>
     <!-- Dados estruturados (JSON-LD) para o Google entender o site -->
     <script type="application/ld+json">
@@ -2390,6 +2502,22 @@
         </div>
     </header>
 
+    <!-- ===== NOVENA A NOSSA SENHORA APARECIDA (mesma funcionalidade do app) ===== -->
+    <div class="novena-overlay" id="novenaOverlay" onclick="if(event.target===this) fecharNovena();">
+        <div class="novena-painel">
+            <div class="novena-header">
+                <button class="novena-close" onclick="fecharNovena()"><i class="fas fa-times"></i></button>
+                <h3><i class="fas fa-pray"></i> Novena de Nossa Senhora Aparecida</h3>
+                <p id="novena-subtitulo">9 dias de oração até 12 de outubro</p>
+            </div>
+            <div class="novena-progresso">
+                <div class="novena-progresso-barra"><div id="novena-progresso-fill" style="width:0%;"></div></div>
+                <p class="novena-progresso-texto" id="novena-progresso-texto">0 de 9 dias rezados</p>
+            </div>
+            <div class="novena-dias" id="novena-dias-lista"></div>
+        </div>
+    </div>
+
     <!-- ===== NAV STICKY + AVISO (fixos juntos no topo) ===== -->
     <div class="topo-fixo">
         <nav class="nav-sticky" id="navSticky">
@@ -2403,6 +2531,7 @@
                     <a onclick="abrirMissa()"><i class="fas fa-broadcast-tower"></i> Missa ao Vivo</a>
                     <a onclick="abrirReflexao()"><i class="fas fa-dove"></i> Reflexão</a>
                     <a onclick="abrirMural()"><i class="fas fa-feather-alt"></i> Mural</a>
+                    <a onclick="abrirNovena()"><i class="fas fa-pray"></i> Novena</a>
                 </div>
             </div>
         </nav>
@@ -2481,6 +2610,18 @@ hs.src = ('//s10.histats.com/js15_as.js');
             <button class="btn-action btn-install" id="installButton" style="display:none;">
                 <i class="fas fa-download"></i> Instalar App
             </button>
+        </div>
+
+        <!-- Cartão sazonal da Novena - aparece automaticamente de 1º de setembro
+             até 12 de outubro (mês de Nossa Senhora Aparecida) e some sozinho
+             no resto do ano (ver atualizarCardNovenaHome no script). -->
+        <div id="novena-home-card" onclick="abrirNovena()">
+            <div class="novena-home-icone"><i class="fas fa-pray"></i></div>
+            <div class="novena-home-texto">
+                <h4>Novena de N. Sra. Aparecida</h4>
+                <p id="novena-home-subtexto">Faltam X dias</p>
+            </div>
+            <i class="fas fa-chevron-right"></i>
         </div>
 
         <!-- Banner Rotativo -->
@@ -11549,12 +11690,237 @@ const firebaseConfig = {
             }
         }
 
+        /* ===========================================================
+           NOVENA A NOSSA SENHORA APARECIDA
+           Tema geral e temas diários OFICIAIS da Novena e Festa da Padroeira 2026,
+           divulgados pelo Santuário Nacional de Aparecida (fonte: a12.com/santuario/festa-da-padroeira).
+           As reflexões de cada dia são um texto de apoio próprio, não copiado do
+           livreto oficial - apenas os temas (frases entre aspas) são os títulos oficiais.
+           Ave Maria e Salve Rainha são orações tradicionais de domínio público.
+        =========================================================== */
+        function logEvento(nome, params) {
+            if (typeof gtag === "function") gtag('event', nome, params || {});
+        }
+
+        const AVE_MARIA_TEXTO = "Ave Maria, cheia de graça, o Senhor é convosco, bendita sois vós entre as mulheres e bendito é o fruto do vosso ventre, Jesus. Santa Maria, Mãe de Deus, rogai por nós pecadores, agora e na hora da nossa morte. Amém.";
+        const SALVE_RAINHA_TEXTO = "Salve Rainha, Mãe de misericórdia, vida, doçura e esperança nossa, salve! A vós bradamos, os degredados filhos de Eva. A vós suspiramos, gemendo e chorando neste vale de lágrimas. Eia, pois, advogada nossa, esses vossos olhos misericordiosos a nós volvei. E depois deste desterro, mostrai-nos Jesus, bendito fruto do vosso ventre, ó clemente, ó piedosa, ó doce sempre Virgem Maria.";
+        const NOVENA_TEMA_GERAL_2026 = "Com Maria, em comunidade, conhecer e praticar a Palavra!";
+        const novenaDias = [
+            { dia: 1, data: "03/10", tema: "Com Maria, a Palavra de Deus nos faz participar da história da salvação!", texto: "Neste primeiro dia, começamos a novena reconhecendo que, assim como Maria acolheu a Palavra em sua vida, somos convidados a deixar que ela também transforme nossa história.", gesto: "Material de limpeza (sabão em pó, desinfetante, sabão em pedra, esponja, palha de aço, detergente)" },
+            { dia: 2, data: "04/10", tema: "Com Maria, discípula perfeita, cuidamos da vida de cada um e da Casa Comum!", texto: "Maria nos ensina, com sua atenção e cuidado, a zelar pela vida das pessoas ao nosso redor e também pelo mundo que habitamos." },
+            { dia: 3, data: "05/10", tema: "Com Maria, construímos a paz e a união pela reconciliação!", texto: "Pedimos hoje a graça de sermos construtores de paz, buscando a reconciliação nas relações feridas de nossa família e comunidade.", gesto: "Condimentos e enlatados (ervilha, milho-verde, sardinha, atum, creme de leite, leite condensado, tempero)" },
+            { dia: 4, data: "06/10", tema: "Com Maria, Mãe discípula, somos redimidos pela Palavra encarnada!", texto: "Com Maria ao lado, contemplamos como a Palavra de Deus se fez carne em Jesus e continua a nos libertar e renovar hoje.", gesto: "Açúcar e óleo" },
+            { dia: 5, data: "07/10", tema: "Com Maria, levamos o Terço e a Bíblia na mão e no coração!", texto: "Hoje renovamos o compromisso de unir oração e Palavra no dia a dia, levando o Terço e a Bíblia como companheiros de caminhada.", gesto: "Condimentos e enlatados (ervilha, milho-verde, sardinha, atum, creme de leite, leite condensado, tempero)" },
+            { dia: 6, data: "08/10", tema: "Com Maria, praticamos a piedade popular, iluminada pela Palavra de Deus!", texto: "Celebramos as formas simples e profundas com que o povo vive sua fé, sempre buscando que essa devoção seja iluminada pela Palavra.", gesto: "Leite em pó, achocolatado e bolachas (sal e doce)" },
+            { dia: 7, data: "09/10", tema: "Com Maria, somos Igreja de irmãos, reunidos pela Palavra e pelo pão da vida!", texto: "Reunidos como irmãos ao redor da Palavra e da Eucaristia, pedimos a Maria que fortaleça os laços de nossa comunidade de fé.", gesto: "Macarrão e massa de tomate" },
+            { dia: 8, data: "10/10", tema: "Com Maria, praticamos a justiça social como compromisso de amor e de paz!", texto: "Neste penúltimo dia, somos chamados a transformar a fé em gesto concreto de justiça e amor por quem mais precisa.", gesto: "Feijão e pó de café" },
+            { dia: 9, data: "11/10", tema: "Com Maria, em família, a Jornada Bíblica do Santuário nos envia a evangelizar!", texto: "Ao concluirmos a novena, encerramos também a Jornada Bíblica do Santuário, sendo enviados como família para viver e anunciar a Palavra.", gesto: "Arroz e óleo" }
+        ];
+
+        // Datas da novena (9 dias antes do dia 12/10) - ajuste aqui se o Santuário
+        // divulgar um calendário oficial diferente no futuro.
+        function dataInicioNovena(ano) { return new Date(ano, 9, 3); } // 3 de outubro (mês 9 = outubro, 0-indexado)
+        function dataFestaAparecida(ano) { return new Date(ano, 9, 12); }
+
+        function diaAtualDaNovena() {
+            const hoje = new Date();
+            const ano = hoje.getFullYear();
+            const inicio = dataInicioNovena(ano);
+            const diffDias = Math.floor((new Date(hoje.getFullYear(), hoje.getMonth(), hoje.getDate()) - inicio) / 86400000);
+            if (diffDias >= 0 && diffDias <= 8) return diffDias + 1; // 1 a 9
+            return null;
+        }
+
+        function chaveNovenaLocalStorage(ano) { return "novena_aparecida_" + ano + "_dias_feitos"; }
+
+        function diasNovenaFeitos() {
+            const ano = new Date().getFullYear();
+            try {
+                return JSON.parse(localStorage.getItem(chaveNovenaLocalStorage(ano))) || [];
+            } catch (e) { return []; }
+        }
+
+        function marcarDiaRezado(dia) {
+            const ano = new Date().getFullYear();
+            let feitos = diasNovenaFeitos();
+            if (feitos.includes(dia)) {
+                feitos = feitos.filter(d => d !== dia);
+            } else {
+                feitos.push(dia);
+                logEvento("novena_dia_rezado", { dia: dia });
+            }
+            localStorage.setItem(chaveNovenaLocalStorage(ano), JSON.stringify(feitos));
+            renderNovenaDias();
+        }
+
+        function renderNovenaDias() {
+            const lista = document.getElementById("novena-dias-lista");
+            if (!lista) return;
+            const feitos = diasNovenaFeitos();
+            const diaAtual = diaAtualDaNovena();
+            const ano = new Date().getFullYear();
+
+            const hoje = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
+            const inicio = dataInicioNovena(ano);
+            const festa = dataFestaAparecida(ano);
+            const subtitulo = document.getElementById("novena-subtitulo");
+            if (subtitulo) {
+                if (hoje < inicio) {
+                    const diasFaltam = Math.ceil((inicio - hoje) / 86400000);
+                    subtitulo.textContent = `A novena começa em ${diasFaltam} dia(s) — faltam ${Math.ceil((festa - hoje) / 86400000)} dia(s) para 12 de outubro`;
+                } else if (hoje > festa) {
+                    subtitulo.textContent = "A novena deste ano já terminou, mas você pode rezar a qualquer momento";
+                } else {
+                    subtitulo.textContent = "9 dias de oração até 12 de outubro — hoje é o dia " + diaAtual;
+                }
+            }
+
+            document.getElementById("novena-progresso-fill").style.width = ((feitos.length / 9) * 100) + "%";
+            document.getElementById("novena-progresso-texto").textContent = feitos.length + " de 9 dias rezados";
+
+            lista.innerHTML = novenaDias.map(d => {
+                const feito = feitos.includes(d.dia);
+                const ehHoje = d.dia === diaAtual;
+                return `
+                <div class="novena-dia-card ${ehHoje ? "hoje" : ""}">
+                    <div class="novena-dia-topo">
+                        <strong>${d.dia}º Dia — ${d.data}</strong>
+                        ${ehHoje ? '<span class="novena-dia-badge">HOJE</span>' : ""}
+                    </div>
+                    <p class="novena-dia-tema">"${d.tema}"</p>
+                    <p class="novena-dia-texto">${d.texto}</p>
+                    ${d.gesto ? `<p class="novena-dia-texto" style="font-size:11.5px; color:var(--gold);"><i class="fas fa-hand-holding-heart"></i> Gesto concreto sugerido: ${d.gesto}</p>` : ""}
+                    <div class="novena-oracao"><b>Ave Maria</b>${AVE_MARIA_TEXTO}</div>
+                    <div class="novena-oracao"><b>Salve Rainha</b>${SALVE_RAINHA_TEXTO}</div>
+                    <button class="novena-marcar ${feito ? "feito" : ""}" onclick="marcarDiaRezado(${d.dia})">
+                        <i class="fas ${feito ? "fa-check-circle" : "fa-circle"}"></i> ${feito ? "Rezado hoje" : "Marcar como rezado"}
+                    </button>
+                </div>`;
+            }).join("");
+        }
+
+        function abrirNovena() {
+            renderNovenaDias();
+            document.getElementById("novenaOverlay").classList.add("aberto");
+            document.body.style.overflow = "hidden";
+            logEvento("novena_aberta");
+        }
+        function fecharNovena() {
+            document.getElementById("novenaOverlay").classList.remove("aberto");
+            document.body.style.overflow = "";
+        }
+
+        // Mostra o card sazonal na home só de 1º de setembro até 12 de outubro; some
+        // sozinho fora desse período, sem precisar remover nada manualmente no ano que vem.
+        function atualizarCardNovenaHome() {
+            const card = document.getElementById("novena-home-card");
+            if (!card) return;
+            const ano = new Date().getFullYear();
+            const hoje = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
+            const inicioJanela = new Date(ano, 8, 1); // 1º de setembro
+            const inicio = dataInicioNovena(ano);
+            const festa = dataFestaAparecida(ano);
+
+            if (hoje < inicioJanela || hoje > festa) {
+                card.classList.remove("mostrar");
+                return;
+            }
+            card.classList.add("mostrar");
+            const sub = document.getElementById("novena-home-subtexto");
+            if (hoje < inicio) {
+                const dias = Math.ceil((inicio - hoje) / 86400000);
+                sub.textContent = `Faltam ${dias} dia(s) para a Novena começar`;
+            } else if (hoje.getTime() === festa.getTime()) {
+                sub.textContent = "Hoje é o Dia de Nossa Senhora Aparecida! 🎉";
+            } else {
+                sub.textContent = `${diaAtualDaNovena()}º dia da Novena — participe`;
+            }
+        }
+
+        /* ===========================================================
+           TEMA SAZONAL "OUTUBRO DOURADO"
+           Ativo de 1º a 12 de outubro (mês de Nossa Senhora Aparecida). Pra
+           conferir antes da data chegar, abra o site com ?previewOutubro=1
+           no final do link (ex: index.html?previewOutubro=1) - isso força o
+           modo de teste, sem mexer na data real do computador/celular.
+        =========================================================== */
+        function previewOutubroForcado() {
+            return new URLSearchParams(window.location.search).get("previewOutubro") === "1";
+        }
+        function estaNaJanelaOutubroDourado() {
+            if (previewOutubroForcado()) return true;
+            const hoje = new Date(); const ano = hoje.getFullYear();
+            const inicio = new Date(ano, 9, 1);
+            const fim = new Date(ano, 9, 12, 23, 59, 59);
+            return hoje >= inicio && hoje <= fim;
+        }
+        function estaNosUltimosDiasFesta() {
+            if (previewOutubroForcado()) return true;
+            const hoje = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
+            const ano = hoje.getFullYear();
+            return hoje >= new Date(ano, 9, 10) && hoje <= new Date(ano, 9, 12);
+        }
+        function ativarTemaOutubroDourado() {
+            if (!estaNaJanelaOutubroDourado()) return;
+            document.body.classList.add("tema-outubro-dourado");
+            const heroContent = document.querySelector(".hero-content");
+            if (heroContent && !document.querySelector(".outubro-ribbon")) {
+                const ribbon = document.createElement("div");
+                ribbon.className = "outubro-ribbon";
+                ribbon.innerHTML = '<i class="fas fa-crown"></i> Mês de Nossa Senhora Aparecida';
+                const titulo = heroContent.querySelector("h2");
+                if (titulo) titulo.insertAdjacentElement("beforebegin", ribbon);
+                else heroContent.appendChild(ribbon);
+            }
+            if (estaNosUltimosDiasFesta()) dispararConfeteDourado();
+            logEvento("tema_outubro_dourado_ativo");
+        }
+        function dispararConfeteDourado() {
+            if (document.getElementById("confeteCanvas")) return;
+            const canvas = document.createElement("canvas");
+            canvas.id = "confeteCanvas";
+            document.body.appendChild(canvas);
+            const ctx = canvas.getContext("2d");
+            function ajustarTamanho() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+            ajustarTamanho();
+            window.addEventListener("resize", ajustarTamanho);
+            const cores = ["#c79a3e", "#e8cf8e", "#1f5c8b", "#ffffff"];
+            const particulas = Array.from({ length: 70 }, () => ({
+                x: Math.random() * canvas.width,
+                y: -20 - Math.random() * canvas.height * 0.6,
+                r: 3 + Math.random() * 4,
+                vy: 1.5 + Math.random() * 2,
+                vx: -1 + Math.random() * 2,
+                cor: cores[Math.floor(Math.random() * cores.length)],
+                rot: Math.random() * 360,
+                vrot: -4 + Math.random() * 8
+            }));
+            const inicio = Date.now();
+            function animar() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particulas.forEach(p => {
+                    p.x += p.vx; p.y += p.vy; p.rot += p.vrot;
+                    ctx.save();
+                    ctx.translate(p.x, p.y);
+                    ctx.rotate(p.rot * Math.PI / 180);
+                    ctx.fillStyle = p.cor;
+                    ctx.fillRect(-p.r, -p.r / 2, p.r * 2, p.r);
+                    ctx.restore();
+                });
+                if (Date.now() - inicio < 4000) requestAnimationFrame(animar);
+                else canvas.remove();
+            }
+            requestAnimationFrame(animar);
+        }
+
         window.onload = function() {
             renderMenu();
             iniciarBannerRandomico();
             iniciarPesquisaAutomatica();
             const anoEl = document.getElementById("copyright-ano");
             if (anoEl) anoEl.textContent = new Date().getFullYear();
+            atualizarCardNovenaHome();
+            ativarTemaOutubroDourado();
         };
     </script>
 </body>
