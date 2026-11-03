@@ -184,17 +184,11 @@
             opacity: 0.7;
         }
 
+        /* Título principal (h1) mantido com o mesmo visual que o título tinha antes (era h2) */
         .hero-content h1 {
-            font-size: clamp(2.4rem, 6vw, 4.4rem);
-            font-weight: 600;
-            letter-spacing: -0.01em;
-            margin-bottom: 14px;
-            text-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
-        }
-
-        .hero-content h1 span {
-            color: var(--gold-light);
-            font-style: italic;
+            font-size: 1.5em;
+            font-weight: 700;
+            margin: 0.83em 0;
         }
 
         .hero-content p {
@@ -1131,8 +1125,6 @@
                 min-height: 360px;
             }
 
-            .hero-content h1 { font-size: 2.1rem; }
-
             .btn-hero {
                 padding: 12px 24px;
                 font-size: 0.88rem;
@@ -1180,7 +1172,6 @@
                 height: 48vh;
                 min-height: 300px;
             }
-            .hero-content h1 { font-size: 1.7rem; }
         }
 
         /* ===========================================================
@@ -2380,7 +2371,7 @@
         <div class="hero-content">
             <a class="icon-badge" href="#inicio" onclick="voltarParaCategorias(); return false;" aria-label="Guia Turístico Aparecida - Início" style="display:flex;border-radius:50%;overflow:hidden;"><img style="border-radius:50%;" src="https://i.imgur.com/ELsq92k.png" alt="Logo Guia Turístico Aparecida"></a>
             <div class="hero-eyebrow">Capital Mariana do Brasil</div>
-            <h2>Guia Turístico <span>Aparecida</span></h2>
+            <h1>Guia Turístico <span>Aparecida</span></h1>
             <p>Descubra pontos turísticos, hotéis, restaurantes e serviços de quem visita ou vive a fé em Aparecida.</p>
             <div class="hero-actions">
                 <a class="btn-hero" href="https://play.google.com/store/apps/details?id=com.appguiaturistico" target="_blank" rel="noopener" onclick="registrarDownload('hero');">
@@ -2396,14 +2387,14 @@
         <nav class="nav-sticky" id="navSticky">
             <div class="container">
                 <div class="nav-links">
-                    <a class="active" onclick="voltarParaCategorias()">Início</a>
-                    <a onclick="selecionarCategoria('Pontos Turísticos')">Turismo</a>
-                    <a onclick="selecionarCategoria('Hotéis e Pousadas')">Hotéis</a>
-                    <a onclick="selecionarCategoria('Bares e Restaurantes')">Restaurantes</a>
-                    <a onclick="selecionarCategoria('Lazer')">Lazer</a>
-                    <a onclick="abrirMissa()"><i class="fas fa-broadcast-tower"></i> Missa ao Vivo</a>
-                    <a onclick="abrirReflexao()"><i class="fas fa-dove"></i> Reflexão</a>
-                    <a onclick="abrirMural()"><i class="fas fa-feather-alt"></i> Mural</a>
+                    <a class="active" href="#inicio" onclick="voltarParaCategorias(); return false;">Início</a>
+                    <a href="#turismo" onclick="selecionarCategoria('Pontos Turísticos'); return false;">Turismo</a>
+                    <a href="#hoteis" onclick="selecionarCategoria('Hotéis e Pousadas'); return false;">Hotéis</a>
+                    <a href="#restaurantes" onclick="selecionarCategoria('Bares e Restaurantes'); return false;">Restaurantes</a>
+                    <a href="#lazer" onclick="selecionarCategoria('Lazer'); return false;">Lazer</a>
+                    <a href="#missa-ao-vivo" onclick="abrirMissa(); return false;"><i class="fas fa-broadcast-tower"></i> Missa ao Vivo</a>
+                    <a href="#reflexao" onclick="abrirReflexao(); return false;"><i class="fas fa-dove"></i> Reflexão</a>
+                    <a href="#mural" onclick="abrirMural(); return false;"><i class="fas fa-feather-alt"></i> Mural</a>
                 </div>
             </div>
         </nav>
@@ -2868,7 +2859,7 @@ const firebaseConfig = {
                 abertura: 10,
                 fechamento: 16,
                 html: `<h3>Restaurante Exemplo - Self Service</h3>
-            <div class="content-header"><img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=500"></div>
+            <div class="content-header"><img alt="Restaurante self service em Aparecida (SP)" loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=500"></div>
             <p>Cardápio variado, ideal para almoço de famílias e caravanas de excursão.</p>`
             }, {
                 nome: "Churrascaria Tradicional Aparecida",
@@ -2877,7 +2868,7 @@ const firebaseConfig = {
                 abertura: 11,
                 fechamento: 23,
                 html: `<h3>Churrascaria Tradicional Aparecida</h3>
-            <div class="content-header"><img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=500"></div>
+            <div class="content-header"><img alt="Churrascaria Tradicional Aparecida" loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1544025162-d76694265947?w=500"></div>
             <p>Cortes de carnes nobres e rodízio completo para o jantar dos peregrinos.</p>`
             }, {
                 nome: "Pizzaria Forno a Lenha Exemplo",
@@ -2886,7 +2877,7 @@ const firebaseConfig = {
                 abertura: 18,
                 fechamento: 23,
                 html: `<h3>Pizzaria Forno a Lenha</h3>
-            <div class="content-header"><img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=500"></div>
+            <div class="content-header"><img alt="Pizzaria Forno a Lenha – Aparecida (SP)" loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=500"></div>
             <p>Ambiente familiar perfeito para a noite em Aparecida.</p>`
             }, {
                 nome: "Lanchonete e Pastelaria da Fé",
@@ -2895,7 +2886,7 @@ const firebaseConfig = {
                 abertura: 7,
                 fechamento: 22,
                 html: `<h3>Lanchonete e Pastelaria da Fé</h3>
-            <div class="content-header"><img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500"></div>
+            <div class="content-header"><img alt="Lanchonete e Pastelaria da Fé – Aparecida (SP)" loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500"></div>
             <p>Salgados quentes, sucos e lanches rápidos para a sua caminhada.</p>`
             },
             // --- CADASTROS EXCLUSIVOS PARA A NOVA CATEGORIA: NÚMEROS ÚTEIS ---
@@ -2950,7 +2941,7 @@ const firebaseConfig = {
                 abertura: 0,
                 fechamento: 24,
                 html: `<h3>Hotel Pousada Dona Ana</h3>
-            <div class="content-header"><img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/820301325.jpg?k=2d8e7b4d9ca21925a16671df37494be6ae355c5e92f5f752a6cfb471fb6b385f&o=" alt="Hotel Pousada Dona Ana - Aparecida"></div>
+            <div class="content-header"><img loading="lazy" decoding="async" src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/820301325.jpg?k=2d8e7b4d9ca21925a16671df37494be6ae355c5e92f5f752a6cfb471fb6b385f&o=" alt="Hotel Pousada Dona Ana - Aparecida"></div>
             <p><b>Endereço:</b> Rua Joaquina Prado, 276 - Aparecida/SP, CEP 12570-000.</p>
             <p><b>Localização:</b> A menos de 1 km do Santuário Nacional e próximo à Rodoviária de Aparecida.</p>
             <p>Pousada confortável com quartos para famílias, banheiro privativo, ar-condicionado, varanda com vista da cidade, TV e ventilador de teto. Conta com terraço, jardim, cozinha compartilhada, sala de estar e salas de reunião.</p>
@@ -2977,7 +2968,7 @@ const firebaseConfig = {
                 abertura: 6,
                 fechamento: 23,
                 html: `<h3>Pousada Perto da Passarela</h3>
-            <div class="content-header"><img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=500"></div>
+            <div class="content-header"><img alt="Pousada Perto da Passarela – Aparecida (SP)" loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=500"></div>
             <p><b>Localização:</b> Próximos à Passarela.</p>
             <p>Hospedagem ideal para quem deseja cruzar a passarela da fé a pé rumo à Basílica Velha.</p>`
             }, {
@@ -2987,7 +2978,7 @@ const firebaseConfig = {
                 abertura: 0,
                 fechamento: 24,
                 html: `<h3>Hotel no Centro Histórico</h3>
-            <div class="content-header"><img src="https://images.unsplash.com/photo-1540541338287-41700207dee6?w=500"></div>
+            <div class="content-header"><img alt="Hotel no Centro Histórico – Aparecida (SP)" loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1540541338287-41700207dee6?w=500"></div>
             <p><b>Localização:</b> No Centro.</p>
             <p>Conforto e comércio local integrado no coração de Aparecida.</p>`
             },
@@ -2999,7 +2990,7 @@ const firebaseConfig = {
                 abertura: 8,
                 fechamento: 17,
                 html: `<h3>Bondinhos Aéreos - Aparecida</h3>
-            <div class="content-header"><img src="https://images.unsplash.com/photo-1578894381163-e72c17f2d45f?w=500"></div>
+            <div class="content-header"><img alt="Passeio de Bondinho Aéreo – Aparecida (SP)" loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1578894381163-e72c17f2d45f?w=500"></div>
             <p>Uma experiência panorâmica incrível ligando o Santuário Nacional ao Morro do Cruzeiro.</p>
             <div class="contact-grid">
                 <a href="https://api.whatsapp.com/send?phone=5512999999999" class="btn-contact bg-whatsapp"><i class="fab fa-whatsapp"></i> INFORMAÇÕES</a>
@@ -3024,7 +3015,7 @@ const firebaseConfig = {
                 nome: "Sobre o Guia",
                 cat: "Informação",
                 html: `
-                <div class="content-header"><img src="https://img.jornaldealagoas.com.br/ae8gMc5Lr6vKJ1GSq6Yzj3oZT7Q=/840x520/smart/s3.jornaldealagoas.com.br/uploads/imagens/2335427.jpg"></div>
+                <div class="content-header"><img alt="Apresentação do Guia Turístico Aparecida" loading="lazy" decoding="async" src="https://img.jornaldealagoas.com.br/ae8gMc5Lr6vKJ1GSq6Yzj3oZT7Q=/840x520/smart/s3.jornaldealagoas.com.br/uploads/imagens/2335427.jpg"></div>
                 <span class="badge">Apresentação</span>
                 <h3>Bem-vindo a Aparecida</h3>
                 <p>Este site foi desenvolvido para facilitar a localização dos principais pontos turísticos da Capital Mariana do Brasil.</p>`
@@ -3032,7 +3023,7 @@ const firebaseConfig = {
                 nome: "Anuncie Aqui",
                 cat: "Publicidade",
                 html: `
-                <div class="content-header"><img src="https://1.bp.blogspot.com/-JImfzb1nWOg/X9Bp5PFZl1I/AAAAAAAAGEM/cYb5o03rZLs1Ydq4Z0-shoTdFLXM1fsmACLcBGAsYHQ/s389/Anuncie%2Baqui.png"></div>
+                <div class="content-header"><img alt="Anuncie aqui no Guia Turístico Aparecida e divulgue sua marca" loading="lazy" decoding="async" src="https://1.bp.blogspot.com/-JImfzb1nWOg/X9Bp5PFZl1I/AAAAAAAAGEM/cYb5o03rZLs1Ydq4Z0-shoTdFLXM1fsmACLcBGAsYHQ/s389/Anuncie%2Baqui.png"></div>
                 <center>
                     <h3>Divulgue sua marca!</h3>
                     <p>Apareça para milhares de turistas que visitam nossa cidade todos os meses.</p>
@@ -3043,7 +3034,7 @@ const firebaseConfig = {
                 </center>`
             }, { nome: "Bondinhos Aéreos", cat: "Turismo", html: `<h3>Bondinhos Aéreos</h3><p>
             <div class="content-header">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/7/77/Bondinho_de_Aparecida_SP_com_a_bas%C3%ADlica_e_a_cidade_ao_fundo.JPG?utm_source=pt.wikipedia.org&utm_campaign=index&utm_content=original">
+                <img alt="Bondinho de Aparecida (SP) com a Basílica e a cidade ao fundo" loading="lazy" decoding="async" src="https://upload.wikimedia.org/wikipedia/commons/7/77/Bondinho_de_Aparecida_SP_com_a_bas%C3%ADlica_e_a_cidade_ao_fundo.JPG?utm_source=pt.wikipedia.org&utm_campaign=index&utm_content=original">
             </div>
             <style>
                 :root {
@@ -3075,7 +3066,7 @@ const firebaseConfig = {
                     border-radius: var(--border-radius);
                     box-shadow: var(--card-shadow);
                 }
-                .main-header h1 {
+                .main-header h2 {
                     color: var(--primary-color);
                     font-size: 24px;
                     margin: 0 0 10px 0;
@@ -3302,7 +3293,7 @@ const firebaseConfig = {
             </p>` },
             { nome: "Caminho do Rosário & Trem do Devoto", cat: "Turismo", html: `<h3>Caminho do Rosário & Trem do Devoto</h3><p>
             <div class="content-header">
-                <img src="https://images.a12.com/source/files/c/181908/Caminho_do_Rosario-395137_1920-566-0-0.png">
+                <img alt="Caminho do Rosário &amp; Trem do Devoto – Aparecida (SP)" loading="lazy" decoding="async" src="https://images.a12.com/source/files/c/181908/Caminho_do_Rosario-395137_1920-566-0-0.png">
             </div>
             <style>
                 :root {
@@ -3334,7 +3325,7 @@ const firebaseConfig = {
                     border-radius: var(--border-radius);
                     box-shadow: var(--card-shadow);
                 }
-                .main-header h1 {
+                .main-header h2 {
                     color: var(--primary-color);
                     font-size: 24px;
                     margin: 0 0 10px 0;
@@ -3580,7 +3571,7 @@ const firebaseConfig = {
             </p>` },
             { nome: "Campanário", cat: "Religioso", html: `<h3>Campanário</h3><p>
             <div class="content-header">
-                <img src="https://4.bp.blogspot.com/-ChyYh8CtUJs/WXy7hTwPyVI/AAAAAAABbXM/viiJmC-rIkY7gJtfFqlBallhPd8P9RHcwCLcBGAs/s1600/sinos%2B6.jpg">
+                <img alt="Campanário – Aparecida (SP)" loading="lazy" decoding="async" src="https://4.bp.blogspot.com/-ChyYh8CtUJs/WXy7hTwPyVI/AAAAAAABbXM/viiJmC-rIkY7gJtfFqlBallhPd8P9RHcwCLcBGAs/s1600/sinos%2B6.jpg">
             </div>
             <style>
                 :root {
@@ -3612,7 +3603,7 @@ const firebaseConfig = {
                     border-radius: var(--border-radius);
                     box-shadow: var(--card-shadow);
                 }
-                .main-header h1 {
+                .main-header h2 {
                     color: var(--primary-color);
                     font-size: 24px;
                     margin: 0 0 10px 0;
@@ -3758,7 +3749,7 @@ const firebaseConfig = {
             </style>
             <div class="container">
                 <header class="main-header">
-                    <h1>O Campanário</h1>
+                    <h2>O Campanário</h2>
                     <p>Uma obra marcante integrada ao Circuito de Visitação, projetada em homenagem ao Jubileu dos 300 anos do encontro da Imagem de Nossa Senhora Aparecida.</p>
                 </header>
                 <h2 class="section-title"><i class="fa-solid fa-gantry"></i> Estrutura do Monumento</h2>
@@ -3790,7 +3781,7 @@ const firebaseConfig = {
             </p>` },
             { nome: "Capela das Velas", cat: "Religioso", html: `<h3>Capela das Velas</h3><p>
             <div class="content-header">
-                <img src="http://s3.amazonaws.com/portala12/source/files/c/1200/724-483-0-0.jpg">
+                <img alt="Capela das Velas – Aparecida (SP)" loading="lazy" decoding="async" src="http://s3.amazonaws.com/portala12/source/files/c/1200/724-483-0-0.jpg">
             </div>
             <style>
                 :root {
@@ -3822,7 +3813,7 @@ const firebaseConfig = {
                     border-radius: var(--border-radius);
                     box-shadow: var(--card-shadow);
                 }
-                .main-header h1 {
+                .main-header h2 {
                     color: var(--primary-color);
                     font-size: 24px;
                     margin: 0 0 10px 0;
@@ -4043,7 +4034,7 @@ const firebaseConfig = {
             </p>` },
             { nome: "Capela Ressureição", cat: "Religioso", html: `<h3>Capela Ressureição</h3><p>
             <div class="content-header">
-                <img src="http://s3.amazonaws.com/portala12/source/files/c/104192/723-483-0-0.jpg">
+                <img alt="Capela Ressureição – Aparecida (SP)" loading="lazy" decoding="async" src="http://s3.amazonaws.com/portala12/source/files/c/104192/723-483-0-0.jpg">
             </div>
             <style>
                 :root {
@@ -4075,7 +4066,7 @@ const firebaseConfig = {
                     border-radius: var(--border-radius);
                     box-shadow: var(--card-shadow);
                 }
-                .main-header h1 {
+                .main-header h2 {
                     color: var(--primary-color);
                     font-size: 24px;
                     margin: 0 0 10px 0;
@@ -4296,7 +4287,7 @@ const firebaseConfig = {
             </p>` },
             { nome: "Capela do Santíssimo", cat: "Religioso", html: `<h3>Capela Santíssimo</h3><p>
             <div class="content-header">
-                <img src="http://s3.amazonaws.com/portala12/source/files/c/26752/724-483-0-0.jpg">
+                <img alt="Capela do Santíssimo – Aparecida (SP)" loading="lazy" decoding="async" src="http://s3.amazonaws.com/portala12/source/files/c/26752/724-483-0-0.jpg">
             </div>
             <style>
                 :root {
@@ -4328,7 +4319,7 @@ const firebaseConfig = {
                     border-radius: var(--border-radius);
                     box-shadow: var(--card-shadow);
                 }
-                .main-header h1 {
+                .main-header h2 {
                     color: var(--primary-color);
                     font-size: 24px;
                     margin: 0 0 10px 0;
@@ -4549,7 +4540,7 @@ const firebaseConfig = {
             </p>` },
             { nome: "Capela São José", cat: "Religioso", html: `<h3>Capela São José</h3><p>
             <div class="content-header">
-                <img src="http://s3.amazonaws.com/portala12/source/files/c/26678/724-483-0-0.jpg">
+                <img alt="Capela São José – Aparecida (SP)" loading="lazy" decoding="async" src="http://s3.amazonaws.com/portala12/source/files/c/26678/724-483-0-0.jpg">
             </div>
             <style>
                 :root {
@@ -4581,7 +4572,7 @@ const firebaseConfig = {
                     border-radius: var(--border-radius);
                     box-shadow: var(--card-shadow);
                 }
-                .main-header h1 {
+                .main-header h2 {
                     color: var(--primary-color);
                     font-size: 24px;
                     margin: 0 0 10px 0;
@@ -4800,7 +4791,7 @@ const firebaseConfig = {
             <p><a href="http://www.a12.com/santuario" class="btn-contact bg-phone" target="_blank"><i class="fas fa-globe"></i> VISITAR SITE</a></p>
             <p><a href="https://goo.gl/maps/gPgWXJG38sP2" class="btn-contact bg-map" target="_blank"><i class="fas fa-map-marker-alt"></i> VER NO MAPA</a></p>
             </p>` },
-            { nome: "Centro de Apoio ao Romeiro", cat: "Serviços", html: `<h3>Centro de Apoio ao Romeiro</h3><p><img src="https://images.a12.com/source/files/c/179799/Natal_CAR_2018-451333_725-483-0-0.jpg" width="100%;" height="270"></a>
+            { nome: "Centro de Apoio ao Romeiro", cat: "Serviços", html: `<h3>Centro de Apoio ao Romeiro</h3><p><img alt="Centro de Apoio ao Romeiro – Aparecida (SP)" loading="lazy" decoding="async" src="https://images.a12.com/source/files/c/179799/Natal_CAR_2018-451333_725-483-0-0.jpg" width="100%;" height="270"></a>
             <p>Acolher com muito carinho os romeiros que visitam a Casa da Mãe Aparecida. Esse é o objetivo do Centro de Apoio ao Romeiro, que oferece com qualidade uma completa e diversificada infraestrutura.
             Localizado no pátio do Santuário Nacional, o Centro de Apoio ao Romeiro foi inaugurado em 30 de maio de 1998, com o objetivo de oferecer comodidade, acolhimento e lazer aos visitantes. Possui duas Praças de alimentação e lojas, onde se podem comprar todos os tipos de lembranças. A estrutura ainda conta com fraldário, sanitários adaptados para pessoas com deficiência, terminais bancários, aquário, parque de diversões, etc.</p>
             <style>
@@ -4833,7 +4824,7 @@ const firebaseConfig = {
                     border-radius: var(--border-radius);
                     box-shadow: var(--card-shadow);
                 }
-                .main-header h1 {
+                .main-header h2 {
                     color: var(--primary-color);
                     font-size: 24px;
                     margin: 0 0 10px 0;
@@ -5059,7 +5050,7 @@ const firebaseConfig = {
                     <p><a href="https://goo.gl/maps/gPgWXJG38sP2" class="btn-contact bg-map" target="_blank"><i class="fas fa-map-marker-alt"></i> VER NO MAPA</a></p>
                 </center>
             </p>` },
-            { nome: "Cidade do Romeiro", cat: "Lazer", html: `<h3>Cidade do Romeiro</h3><p><img src="http://s3.amazonaws.com/portala12/source/files/c/104200/723-483-0-0.jpg" width="100%;" height="270"></a>
+            { nome: "Cidade do Romeiro", cat: "Lazer", html: `<h3>Cidade do Romeiro</h3><p><img alt="Cidade do Romeiro – Aparecida (SP)" loading="lazy" decoding="async" src="http://s3.amazonaws.com/portala12/source/files/c/104200/723-483-0-0.jpg" width="100%;" height="270"></a>
             <style>
                 :root {
                     --primary-color: #0056b3;
@@ -5090,7 +5081,7 @@ const firebaseConfig = {
                     border-radius: var(--border-radius);
                     box-shadow: var(--card-shadow);
                 }
-                .main-header h1 {
+                .main-header h2 {
                     color: var(--primary-color);
                     font-size: 24px;
                     margin: 0 0 10px 0;
@@ -5315,7 +5306,7 @@ const firebaseConfig = {
                 <p><a href="tel:1231041010" class="btn-contact bg-whatsapp"><i class="fas fa-phone-alt"></i> LIGAR AGORA</a></p>
                 <p><a href="https://goo.gl/maps/vjBNDbryCQF2" class="btn-contact bg-map" target="_blank"><i class="fas fa-map-marker-alt"></i> VER NO MAPA</a></p>
             </center></p>` },
-            { nome: "Visitação a Cúpula", cat: "Turismo", html: `<h3>Visitação a Cúpula</h3><p><img src="https://images.a12.com/source/files/c/157430/MEMORIAL_DOS_CONSTRUTORES_1024-320-0-0.jpg" width="100%;" height="270"></a>
+            { nome: "Visitação a Cúpula", cat: "Turismo", html: `<h3>Visitação a Cúpula</h3><p><img alt="Visitação a Cúpula – Aparecida (SP)" loading="lazy" decoding="async" src="https://images.a12.com/source/files/c/157430/MEMORIAL_DOS_CONSTRUTORES_1024-320-0-0.jpg" width="100%;" height="270"></a>
             <style>
                 :root {
                     --primary-color: #0056b3;
@@ -5346,7 +5337,7 @@ const firebaseConfig = {
                     border-radius: var(--border-radius);
                     box-shadow: var(--card-shadow);
                 }
-                .main-header h1 {
+                .main-header h2 {
                     color: var(--primary-color);
                     font-size: 24px;
                     margin: 0 0 10px 0;
@@ -5535,7 +5526,7 @@ const firebaseConfig = {
             </style>
             <div class="container">
                 <header class="main-header">
-                    <h1>Circuito de Visitação à Cúpula</h1>
+                    <h2>Circuito de Visitação à Cúpula</h2>
                     <p>Uma experiência incrível que leva o devoto para as alturas da Basílica Nova, oferecendo uma visão privilegiada dos detalhes da grande Cúpula Central e de todo o Altar Maior.</p>
                 </header>
                 <h2 class="section-title"><i class="fa-regular fa-clock"></i> Visitação e Ingressos</h2>
@@ -5571,7 +5562,7 @@ const firebaseConfig = {
             <p><a href="tel:1231043403" class="btn-contact bg-whatsapp"><i class="fas fa-phone-alt"></i> LIGAR AGORA</a></p>
             <p><a href="https://goo.gl/maps/gPgWXJG38sP2" class="btn-contact bg-map" target="_blank"><i class="fas fa-map-marker-alt"></i> VER NO MAPA</a></p>
             </p>` },
-            { nome: "Memorial dos Devotos", cat: "Museu", html: `<h3>Memorial dos Devotos</h3><p><img src="https://images.a12.com/source/files/c/150844/memorial_da_devocao_2_800-534-0-0.jpg" width="100%;" height="270"></a>
+            { nome: "Memorial dos Devotos", cat: "Museu", html: `<h3>Memorial dos Devotos</h3><p><img alt="Memorial dos Devotos – Aparecida (SP)" loading="lazy" decoding="async" src="https://images.a12.com/source/files/c/150844/memorial_da_devocao_2_800-534-0-0.jpg" width="100%;" height="270"></a>
             <style>
                 :root {
                     --primary-color: #0056b3;
@@ -5602,7 +5593,7 @@ const firebaseConfig = {
                     border-radius: var(--border-radius);
                     box-shadow: var(--card-shadow);
                 }
-                .main-header h1 {
+                .main-header h2 {
                     color: var(--primary-color);
                     font-size: 24px;
                     margin: 0 0 10px 0;
@@ -5822,7 +5813,7 @@ const firebaseConfig = {
             <p><a href="tel:1231043536" class="btn-contact bg-whatsapp"><i class="fas fa-phone-alt"></i> LIGAR AGORA</a></p>
             <p><a href="https://goo.gl/maps/gPgWXJG38sP2" class="btn-contact bg-map" target="_blank"><i class="fas fa-map-marker-alt"></i> VER NO MAPA</a></p>
             </p>` },
-            { nome: "Mirante", cat: "Turismo", html: `<h3>Mirante</h3><p><img src="https://i.imgur.com/cLRpaIp.jpg" width="100%;" height="270"></a>
+            { nome: "Mirante", cat: "Turismo", html: `<h3>Mirante</h3><p><img alt="Mirante – Aparecida (SP)" loading="lazy" decoding="async" src="https://i.imgur.com/cLRpaIp.jpg" width="100%;" height="270"></a>
             <style>
                 :root {
                     --primary-color: #0056b3;
@@ -5853,7 +5844,7 @@ const firebaseConfig = {
                     border-radius: var(--border-radius);
                     box-shadow: var(--card-shadow);
                 }
-                .main-header h1 {
+                .main-header h2 {
                     color: var(--primary-color);
                     font-size: 24px;
                     margin: 0 0 10px 0;
@@ -6075,7 +6066,7 @@ const firebaseConfig = {
             <p><a href="tel:1231041569" class="btn-contact bg-whatsapp"><i class="fas fa-phone-alt"></i> LIGAR AGORA</a></p>
             <p><a href="https://goo.gl/maps/gPgWXJG38sP2" class="btn-contact bg-map" target="_blank"><i class="fas fa-map-marker-alt"></i> VER NO MAPA</a></p>
             </p>` },
-            { nome: "Monumento 300 Anos", cat: "Monumento", html: `<h3>Monumento 300 Anos</h3><p><img src="http://s3.amazonaws.com/portala12/source/files/c/112629/724-483-0-0.jpg" width="100%;" height="270"></a>
+            { nome: "Monumento 300 Anos", cat: "Monumento", html: `<h3>Monumento 300 Anos</h3><p><img alt="Monumento 300 Anos – Aparecida (SP)" loading="lazy" decoding="async" src="http://s3.amazonaws.com/portala12/source/files/c/112629/724-483-0-0.jpg" width="100%;" height="270"></a>
             <style>
                 :root {
                     --primary-color: #0056b3;
@@ -6106,7 +6097,7 @@ const firebaseConfig = {
                     border-radius: var(--border-radius);
                     box-shadow: var(--card-shadow);
                 }
-                .main-header h1 {
+                .main-header h2 {
                     color: var(--primary-color);
                     font-size: 24px;
                     margin: 0 0 10px 0;
@@ -6326,7 +6317,7 @@ const firebaseConfig = {
             <p><a href="http://www.a12.com/santuario" class="btn-contact bg-phone" target="_blank"><i class="fas fa-globe"></i> VISITAR SITE</a></p>
             <p><a href="https://goo.gl/maps/gPgWXJG38sP2" class="btn-contact bg-map" target="_blank"><i class="fas fa-map-marker-alt"></i> VER NO MAPA</a></p>
             </p>` },
-            { nome: "Morro do Cruzeiro", cat: "Religioso", html: `<h3>Morro do Cruzeiro</h3><p><img src="https://images.a12.com/source/files/c/163751/Morro_do_Cruzeiro_-_Via_Sacra_9_724-483-0-0.jpg" width="100%;" height="270"></a>
+            { nome: "Morro do Cruzeiro", cat: "Religioso", html: `<h3>Morro do Cruzeiro</h3><p><img alt="Morro do Cruzeiro – Aparecida (SP)" loading="lazy" decoding="async" src="https://images.a12.com/source/files/c/163751/Morro_do_Cruzeiro_-_Via_Sacra_9_724-483-0-0.jpg" width="100%;" height="270"></a>
             <style>
                 :root {
                     --primary-color: #0056b3;
@@ -6357,7 +6348,7 @@ const firebaseConfig = {
                     border-radius: var(--border-radius);
                     box-shadow: var(--card-shadow);
                 }
-                .main-header h1 {
+                .main-header h2 {
                     color: var(--primary-color);
                     font-size: 24px;
                     margin: 0 0 10px 0;
@@ -6578,7 +6569,7 @@ const firebaseConfig = {
             <p><a href="tel:1231041000" class="btn-contact bg-whatsapp"><i class="fas fa-phone-alt"></i> LIGAR AGORA</a></p>
             <p><a href="https://goo.gl/maps/eJrmCRDU81m" class="btn-contact bg-map" target="_blank"><i class="fas fa-map-marker-alt"></i> VER NO MAPA</a></p>
             </p>` },
-            { nome: "Museu N. Sra Aparecida", cat: "Museu", html: `<h3>Museu N. Sra Aparecida</h3><p><img src="https://irfranciscanas.org.br/wp-content/uploads/2018/02/Santuario-de-Aparecida-Museu-Nossa-Senhora-Aparecida.jpg" width="100%;" height="270"></a>
+            { nome: "Museu N. Sra Aparecida", cat: "Museu", html: `<h3>Museu N. Sra Aparecida</h3><p><img alt="Museu N. Sra Aparecida" loading="lazy" decoding="async" src="https://irfranciscanas.org.br/wp-content/uploads/2018/02/Santuario-de-Aparecida-Museu-Nossa-Senhora-Aparecida.jpg" width="100%;" height="270"></a>
             <style>
                 :root {
                     --primary-color: #0056b3;
@@ -6609,7 +6600,7 @@ const firebaseConfig = {
                     border-radius: var(--border-radius);
                     box-shadow: var(--card-shadow);
                 }
-                .main-header h1 {
+                .main-header h2 {
                     color: var(--primary-color);
                     font-size: 24px;
                     margin: 0 0 10px 0;
@@ -6831,7 +6822,7 @@ const firebaseConfig = {
             <p><a href="tel:1231041000" class="btn-contact bg-whatsapp"><i class="fas fa-phone-alt"></i> LIGAR AGORA</a></p>
             <p><a href="https://goo.gl/maps/gPgWXJG38sP2" class="btn-contact bg-map" target="_blank"><i class="fas fa-map-marker-alt"></i> VER NO MAPA</a></p>
             </p>` },
-            { nome: "Porto Itaguaçu", cat: "Histórico", html: `<h3>Porto Itaguaçu</h3><p><img src="http://s3.amazonaws.com/portala12/source/files/c/103749/725-483-0-0.jpg" width="100%;" height="270"></a>
+            { nome: "Porto Itaguaçu", cat: "Histórico", html: `<h3>Porto Itaguaçu</h3><p><img alt="Porto Itaguaçu – Aparecida (SP)" loading="lazy" decoding="async" src="http://s3.amazonaws.com/portala12/source/files/c/103749/725-483-0-0.jpg" width="100%;" height="270"></a>
             <style>
                 :root {
                     --primary-color: #0056b3;
@@ -6862,7 +6853,7 @@ const firebaseConfig = {
                     border-radius: var(--border-radius);
                     box-shadow: var(--card-shadow);
                 }
-                .main-header h1 {
+                .main-header h2 {
                     color: var(--primary-color);
                     font-size: 24px;
                     margin: 0 0 10px 0;
@@ -7083,7 +7074,7 @@ const firebaseConfig = {
                 <p><a href="tel:12991317269" class="btn-contact bg-whatsapp"><i class="fas fa-phone-alt"></i> LIGAR AGORA</a></p>
                 <p><a href="https://goo.gl/maps/bVRAcnGWUY62" class="btn-contact bg-map" target="_blank"><i class="fas fa-map-marker-alt"></i> VER NO MAPA</a></p>
             </p>` },
-            { nome: "Presépio Permanente Santuário Nacional", cat: "Religioso", html: `<h3>Presépio Permanente Santuário Nacional</h3><p><img src="http://s3.amazonaws.com/portala12/source/files/c/158351/706-483-0-0.jpg" width="100%;" height="270"></a>
+            { nome: "Presépio Permanente Santuário Nacional", cat: "Religioso", html: `<h3>Presépio Permanente Santuário Nacional</h3><p><img alt="Presépio Permanente Santuário Nacional – Aparecida (SP)" loading="lazy" decoding="async" src="http://s3.amazonaws.com/portala12/source/files/c/158351/706-483-0-0.jpg" width="100%;" height="270"></a>
             <style>
                 :root {
                     --primary-color: #0056b3;
@@ -7114,7 +7105,7 @@ const firebaseConfig = {
                     border-radius: var(--border-radius);
                     box-shadow: var(--card-shadow);
                 }
-                .main-header h1 {
+                .main-header h2 {
                     color: var(--primary-color);
                     font-size: 24px;
                     margin: 0 0 10px 0;
@@ -7331,7 +7322,7 @@ const firebaseConfig = {
                     <div class="detail-card spiritual"><div class="detail-avatar"><i class="fa-solid fa-dove"></i></div><div class="detail-details"><h3>Evangelização Visual</h3><p>Ideal para visitas em família, o espaço funciona como uma catequese viva, ajudando crianças e adultos a compreenderem visualmente a simplicidade da manjedoura.</p></div></div>
                 </div>
             </p>` },
-            { nome: "Sala das Promessas", cat: "Religioso", html: `<h3>Sala das Promessas</h3><p> <img src="http://s3.amazonaws.com/portala12/source/files/c/1192/724-483-0-0.jpg" width="100%;" height="270"></a>
+            { nome: "Sala das Promessas", cat: "Religioso", html: `<h3>Sala das Promessas</h3><p> <img alt="Sala das Promessas – Aparecida (SP)" loading="lazy" decoding="async" src="http://s3.amazonaws.com/portala12/source/files/c/1192/724-483-0-0.jpg" width="100%;" height="270"></a>
             <style>
                 :root {
                     --primary-color: #0056b3;
@@ -7362,7 +7353,7 @@ const firebaseConfig = {
                     border-radius: var(--border-radius);
                     box-shadow: var(--card-shadow);
                 }
-                .main-header h1 {
+                .main-header h2 {
                     color: var(--primary-color);
                     font-size: 24px;
                     margin: 0 0 10px 0;
@@ -7585,7 +7576,7 @@ const firebaseConfig = {
             <p><a href="tel:1231041604" class="btn-contact bg-whatsapp"><i class="fas fa-phone-alt"></i> LIGAR AGORA</a>
             <p><a href="https://goo.gl/maps/gPgWXJG38sP2" class="btn-contact bg-map" target="_blank"><i class="fas fa-map-marker-alt"></i> VER NO MAPA</a></p>
             </p>` },
-            { nome: "Santuário Nacional", cat: "Religioso", html: `<h3>Santuário Nacional</h3><p><img src="http://www.aafbb.org.br/wp-content/uploads/2017/02/aparecida_norte.jpg" width="100%;" height="270"></a>
+            { nome: "Santuário Nacional", cat: "Religioso", html: `<h3>Santuário Nacional</h3><p><img alt="Santuário Nacional – Aparecida (SP)" loading="lazy" decoding="async" src="http://www.aafbb.org.br/wp-content/uploads/2017/02/aparecida_norte.jpg" width="100%;" height="270"></a>
             <p><center>‘Acolher bem também é evangelizar’</p></center>
             <style>
                 :root {
@@ -7617,7 +7608,7 @@ const firebaseConfig = {
                     border-radius: var(--border-radius);
                     box-shadow: var(--card-shadow);
                 }
-                .main-header h1 {
+                .main-header h2 {
                     color: var(--primary-color);
                     font-size: 24px;
                     margin: 0 0 10px 0;
@@ -7839,7 +7830,7 @@ const firebaseConfig = {
             <p><a href="tel:1231043491" class="btn-contact bg-whatsapp"><i class="fas fa-phone-alt"></i> LIGAR AGORA</a></p>
             <p><a href="https://goo.gl/maps/gPgWXJG38sP2" class="btn-contact bg-map" target="_blank"><i class="fas fa-map-marker-alt"></i> VER NO MAPA</a></p>
             </p>` },
-            { nome: "Tribuna Bento XVI", cat: "Religioso", html: `<h3>Tribuna Bento XVI</h3><p> <img src="https://i.imgur.com/VMivF0K.jpg" width="100%;" height="270"></a>
+            { nome: "Tribuna Bento XVI", cat: "Religioso", html: `<h3>Tribuna Bento XVI</h3><p> <img alt="Tribuna Bento XVI – Aparecida (SP)" loading="lazy" decoding="async" src="https://i.imgur.com/VMivF0K.jpg" width="100%;" height="270"></a>
             <style>
                 :root {
                     --primary-color: #0056b3;
@@ -7870,7 +7861,7 @@ const firebaseConfig = {
                     border-radius: var(--border-radius);
                     box-shadow: var(--card-shadow);
                 }
-                .main-header h1 {
+                .main-header h2 {
                     color: var(--primary-color);
                     font-size: 24px;
                     margin: 0 0 10px 0;
@@ -8088,10 +8079,10 @@ const firebaseConfig = {
                 </div>
             </div>
             <p><a href="http://www.a12.com/santuario" class="btn-contact bg-phone" target="_blank"><i class="fas fa-globe"></i> VISITAR SITE</a></p>
-            <p><a href="tel:1231041000"><img src="https://i.imgur.com/uqpCKQZ.png" width="300px;" height="70"></p>
+            <p><a href="tel:1231041000"><img alt="Ligar para o Santuário Nacional – (12) 3104-1000" loading="lazy" decoding="async" src="https://i.imgur.com/uqpCKQZ.png" width="300px;" height="70"></p>
             <p><a href="https://goo.gl/maps/gPgWXJG38sP2" class="btn-contact bg-map" target="_blank"><i class="fas fa-map-marker-alt"></i> VER NO MAPA</a></p>
             ` },
-            { nome: "Tribuna Dom Aloísio Lorscheider", cat: "Religioso", html: `<h3>Tribuna Dom Aloísio Lorscheider</h3><p><img src="http://www.a12.com/source/files/originals/img_5017_001.jpg" width="100%;" height="270"></a>
+            { nome: "Tribuna Dom Aloísio Lorscheider", cat: "Religioso", html: `<h3>Tribuna Dom Aloísio Lorscheider</h3><p><img alt="Tribuna Dom Aloísio Lorscheider – Aparecida (SP)" loading="lazy" decoding="async" src="http://www.a12.com/source/files/originals/img_5017_001.jpg" width="100%;" height="270"></a>
             <style>
                 :root {
                     --primary-color: #0056b3;
@@ -8122,7 +8113,7 @@ const firebaseConfig = {
                     border-radius: var(--border-radius);
                     box-shadow: var(--card-shadow);
                 }
-                .main-header h1 {
+                .main-header h2 {
                     color: var(--primary-color);
                     font-size: 24px;
                     margin: 0 0 10px 0;
@@ -8343,7 +8334,7 @@ const firebaseConfig = {
             <p><a href="tel:1231041000" class="btn-contact bg-whatsapp"><i class="fas fa-phone-alt"></i> LIGAR AGORA</a></p>
             <p><a href="https://goo.gl/maps/gPgWXJG38sP2" class="btn-contact bg-map" target="_blank"><i class="fas fa-map-marker-alt"></i> VER NO MAPA</a></p>
             ` },
-            { nome: "Basílica Histórica", cat: "Histórico", html: `<h3>Basílica Histórica</h3><p><img src="http://timblindim.files.wordpress.com/2009/07/basilica_velha_01x.jpg" width="100%;" height="270"></a>
+            { nome: "Basílica Histórica", cat: "Histórico", html: `<h3>Basílica Histórica</h3><p><img alt="Basílica Histórica – Aparecida (SP)" loading="lazy" decoding="async" src="http://timblindim.files.wordpress.com/2009/07/basilica_velha_01x.jpg" width="100%;" height="270"></a>
             <style>
                 :root {
                     --primary-color: #0056b3;
@@ -8374,7 +8365,7 @@ const firebaseConfig = {
                     border-radius: var(--border-radius);
                     box-shadow: var(--card-shadow);
                 }
-                .main-header h1 {
+                .main-header h2 {
                     color: var(--primary-color);
                     font-size: 24px;
                     margin: 0 0 10px 0;
@@ -8596,7 +8587,7 @@ const firebaseConfig = {
             <p><a href="tel:1231051517" class="btn-contact bg-whatsapp"><i class="fas fa-phone-alt"></i> LIGAR AGORA</a></p>
             <p><a href="https://goo.gl/maps/Zs14vMpn1sx" class="btn-contact bg-map" target="_blank"><i class="fas fa-map-marker-alt"></i> VER NO MAPA</a></p>
             </p>` },
-            { nome: "Memorial dos Construtores", cat: "Museu", html: `<h3>Memorial dos Construtores</h3><p><center><img src="https://images.a12.com/source/files/c/157430/MEMORIAL_DOS_CONSTRUTORES_1024-320-0-0.jpg" width="100%;" height="350px" /></center>
+            { nome: "Memorial dos Construtores", cat: "Museu", html: `<h3>Memorial dos Construtores</h3><p><center><img alt="Memorial dos Construtores – Aparecida (SP)" loading="lazy" decoding="async" src="https://images.a12.com/source/files/c/157430/MEMORIAL_DOS_CONSTRUTORES_1024-320-0-0.jpg" width="100%;" height="350px" /></center>
             <style>
                 :root {
                     --primary-color: #0056b3;
@@ -8627,7 +8618,7 @@ const firebaseConfig = {
                     border-radius: var(--border-radius);
                     box-shadow: var(--card-shadow);
                 }
-                .main-header h1 {
+                .main-header h2 {
                     color: var(--primary-color);
                     font-size: 24px;
                     margin: 0 0 10px 0;
@@ -8846,7 +8837,7 @@ const firebaseConfig = {
             </div>
             <p><a href="https://goo.gl/maps/Zs14vMpn1sx" class="btn-contact bg-map" target="_blank"><i class="fas fa-map-marker-alt"></i> VER NO MAPA</a></p>
             </p>` },
-            { nome: "Passarela da Fé", cat: "Turismo", html: `<h3>Passarela da Fé</h3><p><center><img src="https://media-cdn.tripadvisor.com/media/photo-s/0b/a4/1d/6d/passarela-da-fe.jpg" style="width:250px; height:200px;" /></center>
+            { nome: "Passarela da Fé", cat: "Turismo", html: `<h3>Passarela da Fé</h3><p><center><img alt="Passarela da Fé – Aparecida (SP)" loading="lazy" decoding="async" src="https://media-cdn.tripadvisor.com/media/photo-s/0b/a4/1d/6d/passarela-da-fe.jpg" style="width:250px; height:200px;" /></center>
             <style>
                 :root {
                     --primary-color: #0056b3;
@@ -8877,7 +8868,7 @@ const firebaseConfig = {
                     border-radius: var(--border-radius);
                     box-shadow: var(--card-shadow);
                 }
-                .main-header h1 {
+                .main-header h2 {
                     color: var(--primary-color);
                     font-size: 24px;
                     margin: 0 0 10px 0;
@@ -9103,7 +9094,7 @@ const firebaseConfig = {
             </p>` },
             { nome: "Nicho de N. Sra. Aparecida", cat: "Religioso", html: `<h3>
             <div class="content-header">
-                <img src="http://s3.amazonaws.com/portala12/source/files/c/28252/324-483-0-0.jpg">
+                <img alt="Nicho de N. Sra. Aparecida" loading="lazy" decoding="async" src="http://s3.amazonaws.com/portala12/source/files/c/28252/324-483-0-0.jpg">
             </div>
             <style>
                 :root {
@@ -9135,7 +9126,7 @@ const firebaseConfig = {
                     border-radius: var(--border-radius);
                     box-shadow: var(--card-shadow);
                 }
-                .main-header h1 {
+                .main-header h2 {
                     color: var(--primary-color);
                     font-size: 24px;
                     margin: 0 0 10px 0;
@@ -9361,7 +9352,7 @@ const firebaseConfig = {
             </p>` },
             { nome: "Capela do Batismo", cat: "Religioso", html: `<h3>Capela do Batismo</h3><p>
             <div class="content-header">
-                <img src="http://s3.amazonaws.com/portala12/source/files/c/26769/644-483-0-0.jpg">
+                <img alt="Capela do Batismo – Aparecida (SP)" loading="lazy" decoding="async" src="http://s3.amazonaws.com/portala12/source/files/c/26769/644-483-0-0.jpg">
             </div>
             <style>
                 :root {
@@ -9393,7 +9384,7 @@ const firebaseConfig = {
                     border-radius: var(--border-radius);
                     box-shadow: var(--card-shadow);
                 }
-                .main-header h1 {
+                .main-header h2 {
                     color: var(--primary-color);
                     font-size: 24px;
                     margin: 0 0 10px 0;
@@ -9622,7 +9613,7 @@ const firebaseConfig = {
             </p>` },
             { nome: "Construção da Basílica", cat: "Histórico", html: `<h3>Construção da Basílica</h3><p>
             <div class="content-header">
-                <img src="https://carrosantigos.files.wordpress.com/2010/01/aparecida.jpg">
+                <img alt="Construção da Basílica – Aparecida (SP)" loading="lazy" decoding="async" src="https://carrosantigos.files.wordpress.com/2010/01/aparecida.jpg">
             </div>
             <style>
                 :root {
@@ -9654,7 +9645,7 @@ const firebaseConfig = {
                     border-radius: var(--border-radius);
                     box-shadow: var(--card-shadow);
                 }
-                .main-header h1 {
+                .main-header h2 {
                     color: var(--primary-color);
                     font-size: 24px;
                     margin: 0 0 10px 0;
@@ -9909,36 +9900,36 @@ const firebaseConfig = {
                 </div>
                 <h2 class="section-title"><i class="fa-solid fa-images icon-blue"></i> Galeria Histórica e Acervo</h2>
                 <div class="history-gallery">
-                    <div class="gallery-item"><img src="http://acervo.estadao.com.br/imagens/105x65/Santuario_NossaSenhoraAparecida_Corte_EstadoaAcervo.jpg" alt="Acervo Estadão"></div>
-                    <div class="gallery-item"><img src="http://2.bp.blogspot.com/_GVxwcJNQp2Y/TQqZvshUdLI/AAAAAAAAABI/_6Egwqb6TIY/s1600/APARECIDA+ANTIGA+SEMPRE+083.jpg" alt="Aparecida Antiga"></div>
-                    <div class="gallery-item"><img src="https://1.bp.blogspot.com/-FPJvuRJrhXU/VP7qoygsMEI/AAAAAAAAQ0c/aeBaj4l_EMg/s1600/10403480_952067554826011_2275879519843987426_n%2B(1).jpg" alt="Construção Histórica"></div>
-                    <div class="gallery-item"><img src="http://1.bp.blogspot.com/_GVxwcJNQp2Y/TQuhINz6h-I/AAAAAAAAACM/u6c_4OACoP4/s1600/DSC02841.JPG" alt="Detalhe de Época"></div>
-                    <div class="gallery-item"><img src="http://www.jornalolince.com.br/2010/ago/img/amplia/01210.jpg" alt="Registro Histórico"></div>
-                    <div class="gallery-item"><img src="http://www.jb.com.br/media/fotos/2017/10/08/610x472both/Cupula_Central_3G.jpg" alt="Cúpula Central"></div>
-                    <div class="gallery-item"><img src="http://4.bp.blogspot.com/-3lmkcCAP5YI/Td1_dcceTWI/AAAAAAAAAFA/tlB01MdeykA/s1600/OgAAAJPdgHosw_T9bWvzYPCj_Wzjt8cV63E_r_AB3Rghil23_KluRCkgMkAXMOtexXxu24KIZhBCCcS_2yyZMxBR8-EAm1T1UE1xjoVOjkl76ctXU56pQlR-B5-4.jpg" alt="Acervo Antigo"></div>
-                    <div class="gallery-item"><img src="http://3.bp.blogspot.com/-LqH_0NYxffk/TqlW6IDrWAI/AAAAAAAAAUU/f-TR_bnf0zQ/s1600/APARECIDA16032.jpg" alt="Panorâmica Antiga"></div>
-                    <div class="gallery-item"><img src="http://1.bp.blogspot.com/_GVxwcJNQp2Y/TU7GxRt1XZI/AAAAAAAAAGs/J_jcvzbr_Og/s1600/imgCAPJ09T8.jpg" alt="Construção da Basílica"></div>
-                    <div class="gallery-item"><img src="https://i.pinimg.com/originals/80/c5/06/80c5065e1743a89d7f89391d5027d49d.jpg" alt="Pintura Sacra e Detalhe"></div>
-                    <div class="gallery-item"><img src="http://4.bp.blogspot.com/_GVxwcJNQp2Y/TQqb2R0PE5I/AAAAAAAAABU/4dVUQ2eimlY/s1600/basilica+vista+do+paraiba.jpg" alt="Vista do Rio Paraíba"></div>
-                    <div class="gallery-item"><img src="http://4.bp.blogspot.com/-3CgSKv8kXow/UHgP8asfYqI/AAAAAAAABY4/8TWBO5rgrlc/s1600/Construcao-da-Passarela.jpg" alt="Construção da Passarela"></div>
-                    <div class="gallery-item"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOjwMljamCIczS8h5rN345TpPZr9mnar4HLgpFoxZkvGhI84f0" alt="Antiga Imagem Coletiva"></div>
-                    <div class="gallery-item"><img src="http://3.bp.blogspot.com/_GVxwcJNQp2Y/TU7H5gRexHI/AAAAAAAAAGw/cfpH8Pn2U-s/s1600/OPERAIO+EM+OBRAS.jpg" alt="Operário nas Obras"></div>
-                    <div class="gallery-item"><img src="http://1.bp.blogspot.com/_GVxwcJNQp2Y/TQuf0gGbV0I/AAAAAAAAACA/Fqf7MTm9EH4/s1600/DSC02755.JPG" alt="Detalhe Histórico"></div>
-                    <div class="gallery-item"><img src="http://4.bp.blogspot.com/_GVxwcJNQp2Y/TQqXDcPUvGI/AAAAAAAAAA0/yeCCUm5K1Qw/s1600/TORRE+BRASILIA.jpg" alt="Torre Brasília em Obras"></div>
-                    <div class="gallery-item"><img src="https://78.media.tumblr.com/fc858b8c9972108ac338656ff8f97d47/tumblr_oewpxnPs0N1uzr707o1_500.jpg" alt="Detalhe de Época"></div>
-                    <div class="gallery-item"><img src="https://1.bp.blogspot.com/-XJzHGAasnlk/VrtH63_z_YI/AAAAAAAAma0/XoI1mmG_kAk/s640/foto.JPG" alt="Registro Antigo"></div>
+                    <div class="gallery-item"><img loading="lazy" decoding="async" src="http://acervo.estadao.com.br/imagens/105x65/Santuario_NossaSenhoraAparecida_Corte_EstadoaAcervo.jpg" alt="Acervo Estadão"></div>
+                    <div class="gallery-item"><img loading="lazy" decoding="async" src="http://2.bp.blogspot.com/_GVxwcJNQp2Y/TQqZvshUdLI/AAAAAAAAABI/_6Egwqb6TIY/s1600/APARECIDA+ANTIGA+SEMPRE+083.jpg" alt="Aparecida Antiga"></div>
+                    <div class="gallery-item"><img loading="lazy" decoding="async" src="https://1.bp.blogspot.com/-FPJvuRJrhXU/VP7qoygsMEI/AAAAAAAAQ0c/aeBaj4l_EMg/s1600/10403480_952067554826011_2275879519843987426_n%2B(1).jpg" alt="Construção Histórica"></div>
+                    <div class="gallery-item"><img loading="lazy" decoding="async" src="http://1.bp.blogspot.com/_GVxwcJNQp2Y/TQuhINz6h-I/AAAAAAAAACM/u6c_4OACoP4/s1600/DSC02841.JPG" alt="Detalhe de Época"></div>
+                    <div class="gallery-item"><img loading="lazy" decoding="async" src="http://www.jornalolince.com.br/2010/ago/img/amplia/01210.jpg" alt="Registro Histórico"></div>
+                    <div class="gallery-item"><img loading="lazy" decoding="async" src="http://www.jb.com.br/media/fotos/2017/10/08/610x472both/Cupula_Central_3G.jpg" alt="Cúpula Central"></div>
+                    <div class="gallery-item"><img loading="lazy" decoding="async" src="http://4.bp.blogspot.com/-3lmkcCAP5YI/Td1_dcceTWI/AAAAAAAAAFA/tlB01MdeykA/s1600/OgAAAJPdgHosw_T9bWvzYPCj_Wzjt8cV63E_r_AB3Rghil23_KluRCkgMkAXMOtexXxu24KIZhBCCcS_2yyZMxBR8-EAm1T1UE1xjoVOjkl76ctXU56pQlR-B5-4.jpg" alt="Acervo Antigo"></div>
+                    <div class="gallery-item"><img loading="lazy" decoding="async" src="http://3.bp.blogspot.com/-LqH_0NYxffk/TqlW6IDrWAI/AAAAAAAAAUU/f-TR_bnf0zQ/s1600/APARECIDA16032.jpg" alt="Panorâmica Antiga"></div>
+                    <div class="gallery-item"><img loading="lazy" decoding="async" src="http://1.bp.blogspot.com/_GVxwcJNQp2Y/TU7GxRt1XZI/AAAAAAAAAGs/J_jcvzbr_Og/s1600/imgCAPJ09T8.jpg" alt="Construção da Basílica"></div>
+                    <div class="gallery-item"><img loading="lazy" decoding="async" src="https://i.pinimg.com/originals/80/c5/06/80c5065e1743a89d7f89391d5027d49d.jpg" alt="Pintura Sacra e Detalhe"></div>
+                    <div class="gallery-item"><img loading="lazy" decoding="async" src="http://4.bp.blogspot.com/_GVxwcJNQp2Y/TQqb2R0PE5I/AAAAAAAAABU/4dVUQ2eimlY/s1600/basilica+vista+do+paraiba.jpg" alt="Vista do Rio Paraíba"></div>
+                    <div class="gallery-item"><img loading="lazy" decoding="async" src="http://4.bp.blogspot.com/-3CgSKv8kXow/UHgP8asfYqI/AAAAAAAABY4/8TWBO5rgrlc/s1600/Construcao-da-Passarela.jpg" alt="Construção da Passarela"></div>
+                    <div class="gallery-item"><img loading="lazy" decoding="async" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOjwMljamCIczS8h5rN345TpPZr9mnar4HLgpFoxZkvGhI84f0" alt="Antiga Imagem Coletiva"></div>
+                    <div class="gallery-item"><img loading="lazy" decoding="async" src="http://3.bp.blogspot.com/_GVxwcJNQp2Y/TU7H5gRexHI/AAAAAAAAAGw/cfpH8Pn2U-s/s1600/OPERAIO+EM+OBRAS.jpg" alt="Operário nas Obras"></div>
+                    <div class="gallery-item"><img loading="lazy" decoding="async" src="http://1.bp.blogspot.com/_GVxwcJNQp2Y/TQuf0gGbV0I/AAAAAAAAACA/Fqf7MTm9EH4/s1600/DSC02755.JPG" alt="Detalhe Histórico"></div>
+                    <div class="gallery-item"><img loading="lazy" decoding="async" src="http://4.bp.blogspot.com/_GVxwcJNQp2Y/TQqXDcPUvGI/AAAAAAAAAA0/yeCCUm5K1Qw/s1600/TORRE+BRASILIA.jpg" alt="Torre Brasília em Obras"></div>
+                    <div class="gallery-item"><img loading="lazy" decoding="async" src="https://78.media.tumblr.com/fc858b8c9972108ac338656ff8f97d47/tumblr_oewpxnPs0N1uzr707o1_500.jpg" alt="Detalhe de Época"></div>
+                    <div class="gallery-item"><img loading="lazy" decoding="async" src="https://1.bp.blogspot.com/-XJzHGAasnlk/VrtH63_z_YI/AAAAAAAAma0/XoI1mmG_kAk/s640/foto.JPG" alt="Registro Antigo"></div>
                 </div>
             </div>
             <p><a href="http://www.a12.com/santuario" class="btn-contact bg-phone" target="_blank"><i class="fas fa-globe"></i> VISITAR SITE</a></p>
             <p><a href="tel:1231043491" class="btn-contact bg-whatsapp"><i class="fas fa-phone-alt"></i> LIGAR AGORA</a></p>
             <p><a href="https://goo.gl/maps/Zs14vMpn1sx" class="btn-contact bg-map" target="_blank"><i class="fas fa-map-marker-alt"></i> VER NO MAPA</a></p>
             </p>` },
-            { nome: "Contato / Suporte", cat: "Informação", html: `<h3>Fale Conosco</h3><p><center><img src="https://yata-apix-4f083006-0fe9-4f91-807a-c0fc36f924bd.s3-object.locaweb.com.br/b029cc83f4404640a38fb66f647b88ae.png" style="width:100%; height:200px;" /></center>
+            { nome: "Contato / Suporte", cat: "Informação", html: `<h3>Fale Conosco</h3><p><center><img alt="Fale conosco – Guia Turístico Aparecida" loading="lazy" decoding="async" src="https://yata-apix-4f083006-0fe9-4f91-807a-c0fc36f924bd.s3-object.locaweb.com.br/b029cc83f4404640a38fb66f647b88ae.png" style="width:100%; height:200px;" /></center>
             <b>Gostaria de anuciar no nosso aplicativo?</b>
             <b>Entre em contato para mais informações</b>
             <br>
             <center>
-                <p><a href="mailto:guiaaparecidapotim@hotmail.com"><img src="https://i.imgur.com/xPuipxE.png" width="300px;" height="70px" /></a></p>
+                <p><a href="mailto:guiaaparecidapotim@hotmail.com"><img alt="Enviar e-mail para o Guia Turístico Aparecida" loading="lazy" decoding="async" src="https://i.imgur.com/xPuipxE.png" width="300px;" height="70px" /></a></p>
             </center></p>` }
         ];
 
@@ -10426,7 +10417,7 @@ const firebaseConfig = {
                     </div>
                     <div id="recado-conteudo-${id}">
                         <p class="recado-texto">${escapeHtml(r.texto)}</p>
-                        ${r.imagemUrl ? `<img src="${r.imagemUrl}" class="recado-imagem" onclick="window.open('${r.imagemUrl}','_blank')" alt="Foto enviada por peregrino">` : ""}
+                        ${r.imagemUrl ? `<img loading="lazy" decoding="async" src="${r.imagemUrl}" class="recado-imagem" onclick="window.open('${r.imagemUrl}','_blank')" alt="Foto enviada por peregrino">` : ""}
                     </div>
                     ${souDono ? `
                     <div class="recado-menu-dono">
@@ -10706,7 +10697,7 @@ const firebaseConfig = {
                                 <input type="file" id="mural-foto-input" accept="image/*" onchange="selecionarImagemMural(event)">
                             </label>
                             <div class="mural-preview-wrap" id="mural-preview-wrap" style="display:none;">
-                                <img id="mural-preview-img" src="">
+                                <img alt="Prévia da foto selecionada" id="mural-preview-img" src="">
                                 <div class="mural-preview-remover" onclick="removerImagemMural()"><i class="fas fa-times"></i></div>
                             </div>
                         </div>
