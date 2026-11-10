@@ -1480,6 +1480,61 @@
         }
 
         /* ===== AVISO DE MANUTENÇÃO CONCLUÍDA ===== */
+        /* ===== TICKER DE NOTÍCIAS (tempo real, linha única no topo) ===== */
+        .noticias-ticker {
+            display: none;
+            background: var(--ink);
+            color: var(--gold-light);
+            border-bottom: 2px solid var(--gold);
+            height: 36px;
+            align-items: center;
+            overflow: hidden;
+            font-size: 13px;
+            font-weight: 600;
+        }
+        .noticias-ticker.ativo { display: flex; }
+        .noticias-ticker-rotulo {
+            flex: 0 0 auto;
+            background: var(--gold);
+            color: var(--ink);
+            height: 100%;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 0 12px;
+            font-weight: 800;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            font-size: 11.5px;
+            position: relative;
+            z-index: 2;
+        }
+        .noticias-ticker-rotulo .ponto-vivo {
+            width: 8px; height: 8px; border-radius: 50%;
+            background: #c0392b;
+            animation: pontoVivo 1.4s ease-in-out infinite;
+        }
+        @keyframes pontoVivo { 50% { opacity: 0.25; } }
+        .noticias-ticker-janela { flex: 1 1 auto; overflow: hidden; height: 100%; }
+        .noticias-ticker-trilho {
+            display: inline-flex;
+            align-items: center;
+            height: 100%;
+            white-space: nowrap;
+            will-change: transform;
+            animation: noticiasRolar var(--ticker-dur, 40s) linear infinite;
+        }
+        .noticias-ticker:hover .noticias-ticker-trilho,
+        .noticias-ticker:active .noticias-ticker-trilho { animation-play-state: paused; }
+        .noticias-ticker-item { padding: 0 8px; color: inherit; text-decoration: none; }
+        a.noticias-ticker-item:hover { text-decoration: underline; }
+        .noticias-ticker-sep { color: var(--gold); opacity: 0.8; padding: 0 6px; }
+        @keyframes noticiasRolar { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+        @media (prefers-reduced-motion: reduce) {
+            .noticias-ticker-janela { overflow-x: auto; }
+            .noticias-ticker-trilho { animation: none; }
+        }
+
         .topo-fixo {
             position: sticky;
             top: 0;
@@ -2399,15 +2454,10 @@
             </div>
         </nav>
 
-        <!-- ===== AVISO DE MANUTENÇÃO CONCLUÍDA ===== -->
-        <div id="avisoSistema" class="aviso-sistema">
-            <div class="container aviso-sistema-inner">
-                <i class="fas fa-circle-check aviso-sistema-icon"></i>
-                <p class="aviso-sistema-texto"><strong>Tudo 100% funcionando:</strong> Mural de Recados, Pesquisa Rápida, Avaliações e Comentários já estão de volta ao ar.</p>
-                <button class="aviso-sistema-fechar" onclick="fecharAvisoSistema()" aria-label="Fechar aviso">
-                    <i class="fas fa-xmark"></i>
-                </button>
-            </div>
+        <!-- ===== TICKER DE NOTÍCIAS (Firestore "noticias", tempo real) ===== -->
+        <div id="noticiasTicker" class="noticias-ticker" role="region" aria-label="Últimas notícias de Aparecida">
+            <div class="noticias-ticker-rotulo"><span class="ponto-vivo"></span> Notícias</div>
+            <div class="noticias-ticker-janela"><div id="noticiasTrilho" class="noticias-ticker-trilho"></div></div>
         </div>
     </div>
     <script>
@@ -2744,6 +2794,88 @@ const firebaseConfig = {
     </script>
 
     <!-- ============================================================ -->
+    <!-- ===== TICKER DE NOTÍCIAS EM TEMPO REAL ===== -->
+    <script>
+        // Duas fontes, juntas na mesma faixa:
+        //  1) Notícias SUAS (coleção "noticias" do Firestore, tempo real) — aparecem primeiro.
+        //  2) Notícias AUTOMÁTICAS (arquivo noticias.json, atualizado pelo GitHub Actions) — completam a faixa.
+        // Campos do Firestore: titulo e/ou texto (mensagem/conteudo/descricao), link, data, validade, ativa/ativo.
+        (function iniciarTickerNoticias() {
+            const box = document.getElementById("noticiasTicker");
+            const trilho = document.getElementById("noticiasTrilho");
+            if (!box || !trilho) return;
+
+            const MAX_TOTAL = 15, MAX_IDADE_AUTO = 14 * 24 * 3600 * 1000;
+            const esc = (s) => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+            const seguro = (u) => /^https?:\/\//i.test(u || "") ? u : "";
+            const ms = (t) => (t && typeof t.toMillis === "function") ? t.toMillis() : (t ? new Date(t).getTime() || 0 : 0);
+            const pega = (o, chaves) => { for (const k of chaves) if (typeof o[k] === "string" && o[k].trim()) return o[k].trim(); return ""; };
+            const maisRecentes = (a, b) => b.data - a.data;
+
+            let manuais = [], automaticas = [];
+
+            function render() {
+                const usados = new Set(manuais.map(n => n.texto));
+                const itens = manuais.concat(automaticas.filter(n => !usados.has(n.texto))).slice(0, MAX_TOTAL);
+                if (!itens.length) { box.classList.remove("ativo"); trilho.innerHTML = ""; return; }
+
+                const bloco = itens.map(n => {
+                    const t = esc(n.texto);
+                    const el = n.link
+                        ? `<a class="noticias-ticker-item" href="${esc(n.link)}" target="_blank" rel="noopener">${t}</a>`
+                        : `<span class="noticias-ticker-item">${t}</span>`;
+                    return el + '<span class="noticias-ticker-sep">✦</span>';
+                }).join("");
+
+                trilho.innerHTML = `<span>${bloco}</span><span aria-hidden="true">${bloco}</span>`;
+                const chars = itens.reduce((s, n) => s + n.texto.length, 0);
+                trilho.style.setProperty("--ticker-dur", Math.max(25, chars * 0.22) + "s");
+                box.classList.add("ativo");
+            }
+
+            // 1) Firestore (manuais, tempo real)
+            if (typeof db !== "undefined" && db) {
+                db.collection("noticias").limit(40).onSnapshot(
+                    snap => {
+                        const agora = Date.now();
+                        manuais = snap.docs.map(d => d.data())
+                            .filter(n => n.ativa !== false && n.ativo !== false)
+                            .filter(n => !n.validade || ms(n.validade) > agora)
+                            .map(n => {
+                                const titulo = pega(n, ["titulo", "title"]);
+                                const corpo = pega(n, ["texto", "mensagem", "conteudo", "descricao", "noticia", "text", "msg"]);
+                                return { texto: titulo && corpo ? titulo + " — " + corpo : (titulo || corpo),
+                                         link: seguro(n.link || n.url), data: ms(n.data || n.criadoEm || n.createdAt) };
+                            })
+                            .filter(n => n.texto).sort(maisRecentes);
+                        console.info("[Notícias] manuais (Firestore):", manuais.length);
+                        render();
+                    },
+                    err => { console.error("[Notícias] Erro ao ler 'noticias':", err.code, err.message); manuais = []; render(); }
+                );
+            } else {
+                console.warn("[Notícias] Firebase não configurado; usando só as automáticas.");
+            }
+
+            // 2) noticias.json (automáticas)
+            function carregarAutomaticas() {
+                fetch("noticias.json?v=" + Math.floor(Date.now() / 600000), { cache: "no-cache" })
+                    .then(r => { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
+                    .then(lista => {
+                        automaticas = (Array.isArray(lista) ? lista : [])
+                            .map(n => ({ texto: (n && typeof n.texto === "string" ? n.texto.trim() : ""), link: seguro(n && n.link), data: ms(n && n.data) }))
+                            .filter(n => n.texto && (!n.data || Date.now() - n.data < MAX_IDADE_AUTO))
+                            .sort(maisRecentes);
+                        console.info("[Notícias] automáticas (noticias.json):", automaticas.length);
+                        render();
+                    })
+                    .catch(e => console.warn("[Notícias] noticias.json indisponível:", e.message));
+            }
+            carregarAutomaticas();
+            setInterval(carregarAutomaticas, 30 * 60 * 1000);
+        })();
+    </script>
+
     <!-- ===== JAVASCRIPT COMPLETO (mesmo conteúdo do app) ===== -->
     <script>
         // Rola a página até logo abaixo do menu fixo (nav-sticky), em vez de
