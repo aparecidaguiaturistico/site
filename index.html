@@ -1482,6 +1482,9 @@
         /* ===== AVISO DE MANUTENÇÃO CONCLUÍDA ===== */
         /* ===== TICKER DE NOTÍCIAS (tempo real, linha única no topo) ===== */
         .noticias-ticker {
+            position: sticky;
+            top: 0;
+            z-index: 1001;
             display: none;
             background: var(--ink);
             color: var(--gold-light);
@@ -1537,7 +1540,7 @@
 
         .topo-fixo {
             position: sticky;
-            top: 0;
+            top: var(--ticker-h, 0px);
             z-index: 1000;
         }
 
@@ -2421,6 +2424,12 @@
 
 
 
+    <!-- ===== TICKER DE NOTÍCIAS (Firestore "noticias" + noticias.json) — fixo no topo ===== -->
+    <div id="noticiasTicker" class="noticias-ticker" role="region" aria-label="Últimas notícias de Aparecida">
+        <div class="noticias-ticker-rotulo"><span class="ponto-vivo"></span> Notícias</div>
+        <div class="noticias-ticker-janela"><div id="noticiasTrilho" class="noticias-ticker-trilho"></div></div>
+    </div>
+
     <!-- ===== HERO HEADER ===== -->
     <header class="hero-header">
         <div class="hero-content">
@@ -2454,11 +2463,6 @@
             </div>
         </nav>
 
-        <!-- ===== TICKER DE NOTÍCIAS (Firestore "noticias", tempo real) ===== -->
-        <div id="noticiasTicker" class="noticias-ticker" role="region" aria-label="Últimas notícias de Aparecida">
-            <div class="noticias-ticker-rotulo"><span class="ponto-vivo"></span> Notícias</div>
-            <div class="noticias-ticker-janela"><div id="noticiasTrilho" class="noticias-ticker-trilho"></div></div>
-        </div>
     </div>
     <script>
 
@@ -2817,7 +2821,7 @@ const firebaseConfig = {
             function render() {
                 const usados = new Set(manuais.map(n => n.texto));
                 const itens = manuais.concat(automaticas.filter(n => !usados.has(n.texto))).slice(0, MAX_TOTAL);
-                if (!itens.length) { box.classList.remove("ativo"); trilho.innerHTML = ""; return; }
+                if (!itens.length) { box.classList.remove("ativo"); trilho.innerHTML = ""; document.documentElement.style.setProperty("--ticker-h", "0px"); return; }
 
                 const bloco = itens.map(n => {
                     const t = esc(n.texto);
@@ -2831,6 +2835,7 @@ const firebaseConfig = {
                 const chars = itens.reduce((s, n) => s + n.texto.length, 0);
                 trilho.style.setProperty("--ticker-dur", Math.max(25, chars * 0.22) + "s");
                 box.classList.add("ativo");
+                document.documentElement.style.setProperty("--ticker-h", box.offsetHeight + "px");
             }
 
             // 1) Firestore (manuais, tempo real)
