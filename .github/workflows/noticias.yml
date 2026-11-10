@@ -1,0 +1,39 @@
+name: Atualizar notícias de Aparecida
+
+on:
+  schedule:
+    - cron: "17 */3 * * *"   # a cada 3 horas
+  workflow_dispatch:          # permite rodar manualmente pela aba Actions
+
+permissions:
+  contents: write
+
+concurrency:
+  group: noticias
+  cancel-in-progress: true
+
+jobs:
+  atualizar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Buscar notícias
+        run: python scripts/atualizar_noticias.py
+
+      - name: Salvar se mudou
+        run: |
+          if [ -n "$(git status --porcelain noticias.json)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add noticias.json
+            git commit -m "Atualiza notícias automáticas"
+            git pull --rebase
+            git push
+          else
+            echo "Sem mudanças."
+          fi
