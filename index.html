@@ -1479,6 +1479,26 @@
             margin: 8px 0 0 22px;
         }
 
+        /* ===== ABA NOTÍCIAS ===== */
+        .nt-chips { display: flex; gap: 8px; overflow-x: auto; padding: 4px 2px 14px; -webkit-overflow-scrolling: touch; }
+        .nt-chip {
+            flex: 0 0 auto; border: 1px solid var(--line); background: var(--paper); color: var(--text);
+            padding: 9px 16px; border-radius: 60px; font: 600 13px 'Inter', sans-serif; cursor: pointer;
+            transition: var(--transition);
+        }
+        .nt-chip.ativo { background: var(--ink); color: var(--gold-light); border-color: var(--ink); }
+        .nt-item {
+            display: block; text-decoration: none; padding: 14px 16px; border-radius: var(--radius);
+            border: 1px solid var(--line); border-left: 4px solid var(--gold); background: var(--paper);
+            margin-bottom: 10px; box-shadow: var(--card-shadow); color: var(--text);
+        }
+        .nt-titulo { font-weight: 700; font-size: 15px; line-height: 1.4; }
+        .nt-meta { margin-top: 6px; font-size: 12px; color: var(--text-light); display: flex; gap: 8px; flex-wrap: wrap; }
+        .nt-vazio { text-align: center; padding: 28px 12px; color: var(--text-light); font-size: 14px; line-height: 1.5; }
+        .nt-aviso { margin-top: 18px; font-size: 12px; color: var(--text-light); text-align: center; line-height: 1.5; }
+        body.dark-theme .nt-chip, body.dark-theme .nt-item { background: #142943; color: #e4dfd2; border-color: #27425f; }
+        body.dark-theme .nt-chip.ativo { background: var(--gold); color: #10263f; border-color: var(--gold); }
+
         /* ===== AVISO DE MANUTENÇÃO CONCLUÍDA ===== */
         /* ===== TICKER DE NOTÍCIAS (tempo real, linha única no topo) ===== */
         .noticias-ticker {
@@ -10264,6 +10284,10 @@ const firebaseConfig = {
                             <i class="fas fa-envelope" style="color: #6a5490;"></i>
                             <h3>Fale Conosco</h3>
                         </div>
+                        <div class="card-category" onclick="abrirNoticias()" style="border-bottom: 3px solid #1f5c8b;">
+                            <i class="fas fa-newspaper" style="color: #1f5c8b;"></i>
+                            <h3>Notícias</h3>
+                        </div>
                     </div>
                 `;
 
@@ -10854,6 +10878,104 @@ const firebaseConfig = {
             document.getElementById("menu").innerHTML = "";
             renderMural();
             rolarParaConteudo();
+        }
+
+        /* ===========================================================
+           ABA NOTÍCIAS — lê noticias_aba.json (atualizado pelo GitHub Actions)
+        =========================================================== */
+        const ntEsc = (x) => String(x == null ? "" : x).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+        let noticiasAba = null;        // dados carregados
+        let noticiasAbaCat = null;     // categoria selecionada (id)
+        let noticiasAbaStatus = "carregando"; // carregando | ok | erro
+
+        function noticiasAbaTempo(iso) {
+            const t = new Date(iso).getTime();
+            if (!t) return "";
+            const min = Math.floor((Date.now() - t) / 60000);
+            if (min < 1) return "agora";
+            if (min < 60) return `há ${min} min`;
+            const h = Math.floor(min / 60);
+            if (h < 24) return `há ${h} h`;
+            const d = Math.floor(h / 24);
+            return d === 1 ? "ontem" : `há ${d} dias`;
+        }
+
+        function noticiasAbaLimpaTitulo(texto, fonte) {
+            let t = String(texto || "");
+            if (fonte && t.endsWith(" - " + fonte)) t = t.slice(0, -(fonte.length + 3));
+            return t.trim();
+        }
+
+        function noticiasAbaLinkSeguro(u) { return /^https?:\/\//i.test(u || "") ? u : ""; }
+
+        function abrirNoticias() {
+            pararEscutaMural();
+            document.getElementById("search-area").style.display = "none";
+            document.getElementById("action-bar-container").style.display = "none";
+            document.getElementById("banner-container").style.display = "none";
+            document.getElementById("menu").innerHTML = "";
+
+            document.getElementById("pagina-interna").innerHTML = `
+                <button class="btn-voltar" onclick="voltarParaCategorias()">
+                    <i class="fas fa-arrow-left"></i> Voltar
+                </button>
+                <div class="content-card">
+                    <div class="mural-intro">
+                        <div class="icon-badge-inline"><i class="fas fa-newspaper"></i></div>
+                        <h3>Notícias</h3>
+                        <p class="mural-subtitulo">As últimas notícias de Aparecida, da Igreja, da região e do Brasil, reunidas automaticamente.</p>
+                    </div>
+                    <div class="nt-chips" id="nt-chips"></div>
+                    <div id="nt-lista"></div>
+                    <p class="nt-aviso">Notícias reunidas automaticamente de portais externos. O Guia não produz nem se responsabiliza pelo conteúdo; ao tocar, você lê na página da fonte.</p>
+                </div>`;
+            rolarParaConteudo();
+            pintarNoticiasAba();
+
+            fetch("noticias_aba.json?v=" + Math.floor(Date.now() / 600000), { cache: "no-cache" })
+                .then(r => { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
+                .then(dados => {
+                    noticiasAba = (dados && Array.isArray(dados.categorias)) ? dados.categorias : [];
+                    noticiasAbaStatus = "ok";
+                    if (!noticiasAbaCat || !noticiasAba.some(c => c.id === noticiasAbaCat)) {
+                        const primeira = noticiasAba.find(c => c.itens && c.itens.length) || noticiasAba[0];
+                        noticiasAbaCat = primeira ? primeira.id : null;
+                    }
+                    pintarNoticiasAba();
+                })
+                .catch(e => { console.warn("[Notícias] aba indisponível:", e.message); noticiasAbaStatus = "erro"; pintarNoticiasAba(); });
+        }
+
+        function escolherNoticiasAbaCat(id) { noticiasAbaCat = id; pintarNoticiasAba(); }
+
+        function pintarNoticiasAba() {
+            const chips = document.getElementById("nt-chips");
+            const lista = document.getElementById("nt-lista");
+            if (!chips || !lista) return; // usuário saiu da aba
+
+            if (noticiasAbaStatus === "carregando") { chips.innerHTML = ""; lista.innerHTML = '<div class="nt-vazio"><i class="fas fa-spinner fa-spin"></i> Carregando notícias...</div>'; return; }
+            if (noticiasAbaStatus === "erro" || !noticiasAba || !noticiasAba.length) {
+                chips.innerHTML = "";
+                lista.innerHTML = '<div class="nt-vazio">As notícias ainda não estão disponíveis. Tente novamente em alguns minutos.</div>';
+                return;
+            }
+
+            chips.innerHTML = noticiasAba.map(c =>
+                `<button class="nt-chip ${c.id === noticiasAbaCat ? "ativo" : ""}" onclick="escolherNoticiasAbaCat('${ntEsc(c.id)}')">${ntEsc(c.nome)}</button>`
+            ).join("");
+
+            const cat = noticiasAba.find(c => c.id === noticiasAbaCat);
+            const itens = (cat && cat.itens) ? cat.itens : [];
+            if (!itens.length) { lista.innerHTML = '<div class="nt-vazio">Nenhuma notícia nesta categoria no momento.</div>'; return; }
+
+            lista.innerHTML = itens.map(n => {
+                const titulo = ntEsc(noticiasAbaLimpaTitulo(n.texto, n.fonte));
+                const link = noticiasAbaLinkSeguro(n.link);
+                const meta = `<div class="nt-meta">${n.fonte ? `<span><i class="fas fa-newspaper"></i> ${ntEsc(n.fonte)}</span>` : ""}<span>${ntEsc(noticiasAbaTempo(n.data))}</span></div>`;
+                return link
+                    ? `<a class="nt-item" href="${ntEsc(link)}" target="_blank" rel="noopener"><div class="nt-titulo">${titulo}</div>${meta}</a>`
+                    : `<div class="nt-item"><div class="nt-titulo">${titulo}</div>${meta}</div>`;
+            }).join("");
         }
 
         /* ===========================================================
